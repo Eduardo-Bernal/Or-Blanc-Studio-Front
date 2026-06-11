@@ -1,19 +1,24 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { Cinzel, Tenor_Sans } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const cinzel = Cinzel({
+    weight: ["400", "500", "600", "700"],
+    variable: "--font-cinzel",
+    subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const tenor = Tenor_Sans({
+    weight: "400",
+    variable: "--font-tenor",
+    subsets: ["latin"],
 });
 
-export default function Home() {
-  return (
-    <>
-
-    </>
-  );
+export default function App({ Component, pageProps }: AppProps) {
+    return (
+        <main className={`${cinzel.variable} ${tenor.variable}`}>
+            <Component {...pageProps} />
+        </main>
+    );
 }
