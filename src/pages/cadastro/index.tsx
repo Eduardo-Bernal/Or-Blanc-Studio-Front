@@ -62,8 +62,10 @@ export default function Cadastro() {
                         <button
                             className="btn w-100 py-3 fw-medium mt-4"
                             style={{
-                                backgroundColor: "#D9C27A",
-                                color: "#1B1B1B"
+                                background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
+                                color: "#000",
+                                border: "none",
+                                minWidth: "120px",
                             }}
                         >
                             Entrar

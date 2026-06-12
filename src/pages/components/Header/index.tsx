@@ -1,25 +1,25 @@
 export default function Header() {
     return (
         <header
-            className="container-fluid px-4"
+            className="col-12 d-flex flex-row justify-content-between px-4"
             style={{
                 backgroundColor: "#1D1D1E",
                 minHeight: "100px",
             }}
         >
-            <div className="container h-100">
-                <div className="row align-items-center py-3">
+            <div className="col-12 ps-2 pe-2">
+                <div className="row align-items-center">
 
-                    {/* Logo */}
+
                     <div className="col-3">
                         <img
                             src="/imgs/logoLogin.png"
                             alt="Logo"
-                            style={{ height: "70px" }}
+                            style={{ height: "100px" }}
                         />
                     </div>
 
-                    {/* Menu Centralizado */}
+
                     <div className="col-6">
                         <nav className="d-flex justify-content-center gap-4">
                             <a href="#" className="text-decoration-none text-white">
@@ -45,7 +45,7 @@ export default function Header() {
                         <button
                             className="btn px-4"
                             style={{
-                                background: "linear-gradient(90deg, #B98A2D, #E9C65D)",
+                                background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
                                 color: "#000",
                                 border: "none",
                                 minWidth: "120px",
