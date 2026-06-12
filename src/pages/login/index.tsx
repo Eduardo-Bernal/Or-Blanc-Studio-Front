@@ -1,14 +1,39 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { auth } from "@/pages/api/authService";
+import { erro, notificacao } from "@/utils/toast";
+
 export default function Login() {
+    const router = useRouter();
+
+    const [email, setEmail] = useState<string>("");
+    const [senha, setSenha] = useState<string>("");
+
+    async function login(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        try {
+            await auth(email, senha);
+
+            notificacao("Autenticado com sucesso!");
+
+            setTimeout(() => {
+                router.push("/servico/agendar");
+            }, 2000);
+        } catch {
+            erro("Email ou Senha incorretos.");
+        }
+    }
+
     return (
-        <main style={{backgroundColor: '#353535'}} className="container-fluid vh-100">
+        <main style={{ backgroundColor: "#353535" }} className="container-fluid vh-100">
             <div className="row h-100 p-3">
                 <div className="col-lg-6 d-none d-lg-flex justify-content-center align-items-center">
                     <div className="overflow-hidden rounded-4 d-flex align-items-center justify-content-center">
                         <img
                             src="/imgs/loginbg.png"
                             alt="Login"
-                            className=""
-                            style={{width:'90%'}}
+                            style={{ width: "90%" }}
                         />
                     </div>
                 </div>
@@ -34,50 +59,59 @@ export default function Login() {
                             Digite seu email e sua senha para acessar sua conta.
                         </p>
 
-                        <div className="mb-4">
-                            <label className="form-label text-white">
-                                Email
-                            </label>
+                        <form onSubmit={login}>
+                            <div className="mb-4">
+                                <label className="form-label text-white">
+                                    Email
+                                </label>
 
-                            <input
-                                type="email"
-                                className="form-control bg-secondary-subtle border-0 py-3"
-                                placeholder="Digite seu email..."
-                            />
-                        </div>
+                                <input
+                                    type="email"
+                                    className="form-control bg-secondary-subtle border-0 py-3"
+                                    placeholder="Digite seu email..."
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-                        <div className="mb-2">
-                            <label className="form-label text-white">
-                                Senha
-                            </label>
+                            <div className="mb-2">
+                                <label className="form-label text-white">
+                                    Senha
+                                </label>
 
-                            <input
-                                type="password"
-                                className="form-control bg-secondary-subtle border-0 py-3"
-                                placeholder="Digite sua senha..."
-                            />
-                        </div>
+                                <input
+                                    type="password"
+                                    className="form-control bg-secondary-subtle border-0 py-3"
+                                    placeholder="Digite sua senha..."
+                                    value={senha}
+                                    onChange={(e) => setSenha(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-                        <div className="text-end mb-5">
-                            <a
-                                href="#"
-                                className="text-light small"
+                            <div className="text-end mb-5">
+                                <a
+                                    href="#"
+                                    className="text-light small"
+                                >
+                                    Esqueceu sua senha?
+                                </a>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="btn w-100 py-3 fw-medium"
+                                style={{
+                                    background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
+                                    color: "#000",
+                                    border: "none",
+                                    minWidth: "120px",
+                                }}
                             >
-                                Esqueceu sua senha?
-                            </a>
-                        </div>
-
-                        <button
-                            className="btn w-100 py-3 fw-medium"
-                            style={{
-                                background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
-                                color: "#000",
-                                border: "none",
-                                minWidth: "120px",
-                            }}
-                        >
-                            Entrar
-                        </button>
+                                Entrar
+                            </button>
+                        </form>
 
                         <div className="text-center mt-5">
                             <a
@@ -89,7 +123,6 @@ export default function Login() {
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
     );
