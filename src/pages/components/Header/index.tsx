@@ -1,3 +1,5 @@
+import ButtonGold from "@/pages/components/ButtonGold";
+
 export default function Header() {
     return (
         <header
@@ -42,24 +44,21 @@ export default function Header() {
 
 
                     <div className="col-3 d-flex justify-content-end gap-3">
-                        <button
-                            className="btn px-4"
-                            style={{
-                                background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
-                                color: "#000",
-                                border: "none",
-                                minWidth: "120px",
-                            }}
-                        >
-                            LOGIN
-                        </button>
+                        <div className="p-4">
+                            <ButtonGold
+                                type="submit"
+                                value="login"
+                            />
+                        </div>
 
+                        <div className="p-4">
                         <button
-                            className="btn btn-outline-light px-4"
+                            className="btn btn-outline-light"
                             style={{ minWidth: "120px" }}
                         >
                             Registre-se
                         </button>
+                    </div>
                     </div>
 
                 </div>

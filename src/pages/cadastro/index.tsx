@@ -1,6 +1,7 @@
-import { useState } from "react";
+import {useState} from "react";
 import {cadastro} from "@/pages/api/cadastroService";
 import {erro, notificacao} from "@/utils/toast";
+import ButtonGold from "@/pages/components/ButtonGold";
 
 
 export default function Cadastro() {
@@ -13,7 +14,7 @@ export default function Cadastro() {
     const [loading, setLoading] = useState(false);
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm({...form, [e.target.name]: e.target.value});
     }
 
     async function handleSubmit() {
@@ -36,12 +37,12 @@ export default function Cadastro() {
     }
 
     return (
-        <main style={{ backgroundColor: "#353535" }} className="container-fluid vh-100">
+        <main style={{backgroundColor: "#353535"}} className="container-fluid vh-100">
             <div className="row h-100 p-3">
                 <div className="col-lg-6 d-flex align-items-center justify-content-center">
-                    <div className="w-100" style={{ maxWidth: "420px" }}>
+                    <div className="w-100" style={{maxWidth: "420px"}}>
                         <div className="text-center mb-5">
-                            <img src="/imgs/logoLogin.png" alt="Logo" style={{ width: "140px" }} />
+                            <img src="/imgs/logoLogin.png" alt="Logo" style={{width: "140px"}}/>
                         </div>
 
                         <h1 className="text-white fw-light mb-1">Registre se agora</h1>
@@ -98,20 +99,14 @@ export default function Cadastro() {
                             />
                         </div>
 
-                        <button
-                            onClick={handleSubmit}
-                            disabled={loading}
-                            className="btn w-100 py-3 fw-medium mt-4"
-                            style={{
-                                background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
-                                color: "#000",
-                                border: "none",
-                                minWidth: "120px",
-                                opacity: loading ? 0.7 : 1,
-                            }}
-                        >
-                            {loading ? "Criando conta..." : "Criar conta"}
-                        </button>
+                        <div className="mt-4">
+                            <ButtonGold
+                                type="submit"
+                                onclick={handleSubmit}
+                                value={loading ? "Criando conta..." : "Criar conta"}
+                            />
+                        </div>
+
 
                         <div className="text-center mt-5">
                             <a href="#" className="text-light">
@@ -126,7 +121,7 @@ export default function Cadastro() {
                         <img
                             src="/imgs/loginbg.png"
                             alt="Login"
-                            style={{ width: "90%" }}
+                            style={{width: "90%"}}
                         />
                     </div>
                 </div>
