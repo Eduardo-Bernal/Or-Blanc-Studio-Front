@@ -1,5 +1,5 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/globals.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import type { AppProps } from "next/app";
 import { Cinzel, Tenor_Sans } from "next/font/google";
 

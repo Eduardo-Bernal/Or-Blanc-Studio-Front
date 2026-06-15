@@ -1,6 +1,10 @@
 :root {
   --background: #353535;
   --foreground: #171717;
+  --preto-fundo: #1D1D1E;
+  --dourado-titulo: linear-gradient(-90deg, #fcff9e 0%, #c67700 100%);
+  --branco: #ECECEC;
+  --preto-input: #353535;
 }
 
 @media (prefers-color-scheme: dark) {
