@@ -11,7 +11,7 @@ export default function ButtonGold({type = "button", value, onclick }: ButtonPro
         <button
             type={type}
             onClick={onclick}
-            className="btn w-100 py-3 fw-medium mt-4"
+            className="btn w-100 py-2 fw-medium"
             style={{
                 background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
                 color: "#000",
