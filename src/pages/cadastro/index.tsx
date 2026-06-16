@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {cadastro} from "@/pages/api/cadastroService";
+import {cadastro} from "@/services/cadastroService";
 import {erro, notificacao} from "@/utils/toast";
 
 
@@ -28,7 +28,7 @@ export default function Cadastro() {
         try {
             await cadastro(form.nome, form.telefone, form.email, form.senha);
             notificacao("Autenticado com sucesso!");
-        } catch (e: any) {
+        } catch {
             erro("Erro ao criar a conta");
         } finally {
             setLoading(false);
