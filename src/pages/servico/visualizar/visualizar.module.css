@@ -1,0 +1,19 @@
+.page_content {
+    min-height: calc(100vh - 78px);
+    padding: 50px 0;
+    background-color: var(--preto-fundo);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--branco);
+    width: 350px;
+    height: auto;
+    padding: 25px;
+    border-radius: 8px;
+}
