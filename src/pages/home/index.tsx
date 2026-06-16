@@ -1,4 +1,6 @@
 import Header from "@/pages/components/Header";
+import ButtonGold from "@/pages/components/ButtonGold";
+import Footer from "@/pages/components/Footer";
 
 const Home = () => {
     return (
@@ -25,30 +27,39 @@ const Home = () => {
 
                 {/* SERVIÇOS */}
                 <section className="vh-100 d-flex align-items-center flex-column justify-content-center container">
-                    <h2>Nossos Serviços</h2>
-                    <div className="col-8 h-75 position-relative d-flex justify-content-between">
-                        <div className="d-flex col-12">
-                            <img className="card bg-transparent object-fit-cover p-2" style={{height: "100%"}} src="/imgs/Cabelo.png" alt=""/>
+                    <h2 className="">Nossos Serviços</h2>
+                    <div className="col-12 h-75 d-flex justify-content-between z-3">
+                        <div className="d-flex col-8">
+                            <img className="card bg-transparent object-fit-cover p-2" style={{height: "100%"}}
+                                 src="/imgs/Cabelo.png" alt=""/>
                             <div className="col-4 h-100 position-relative d-flex justify-content-between flex-column">
                                 <img className="card bg-transparent object-fit-cover p-2" style={{height: "50%"}}
-                                     src="/imgs/Cabelo.png" alt=""/>
+                                     src="/imgs/Unha.png" alt=""/>
                                 <img className="card bg-transparent object-fit-cover p-2" style={{height: "50%"}}
-                                     src="/imgs/Cabelo.png" alt=""/>
+                                     src="/imgs/Pé.png" alt=""/>
                             </div>
                             <div className="col-4 h-100 position-relative d-flex justify-content-between flex-column">
                                 <img className="card bg-transparent object-fit-cover p-2" style={{height: "50%"}}
-                                     src="/imgs/Cabelo.png" alt=""/>
+                                     src="/imgs/depilation.png" alt=""/>
                                 <img className="card bg-transparent object-fit-cover p-2" style={{height: "50%"}}
-                                     src="/imgs/Cabelo.png" alt=""/>
+                                     src="/imgs/Maquiagem.png" alt=""/>
+
                             </div>
                         </div>
 
                         {/*card do lado direito*/}
-                        <article className="col-4">
-                            <div className="card p-2 bg-transparent glass-card border border-warning" style={{height: "80%"}}>
-
+                        <article className="col-4 d-flex align-items-center flex-column justify-content-between p-2">
+                            <div className="p-2 bg-transparent glass-card d-flex flex-column align-items-center"
+                                 style={{height: "80%"}}>
+                                <h3 className="m-4 text-white text-center">Beleza e Estilo</h3>
+                                <span className="text-white text-center mt-5">
+                                    Oferecemos uma experiência completa de cuidado, estilo e sofisticação para valorizar sua beleza única. Nossa equipe utiliza técnicas modernas e atendimento personalizado para proporcionar resultados impecáveis em cada detalhe.
+                                    Dos cuidados com os cabelos aos tratamentos de beleza, cada serviço é pensado para renovar sua autoestima e oferecer um momento de bem-estar, qualidade e elegância em cada atendimento.
+                                </span>
                             </div>
-                            <div className="botao h-auto"></div>
+                            <div className="botao h-auto w-100">
+                                <ButtonGold value="Ver Todos"></ButtonGold>
+                            </div>
                         </article>
                     </div>
 
@@ -94,7 +105,40 @@ const Home = () => {
                     </svg>
 
                 </section>
+
+                {/*Profissionais*/}
+                <section className="text-white vh-100 col-12 container">
+                    <h2 className="text-center"> Especialistas em Beleza <br/> <strong>Nossa Equipe</strong></h2>
+                    <div className="h-75 col-12 d-flex flex-column gap-1">
+                        <div className="h-100 d-flex">
+                            <article className="h-75 col-4 d-flex flex-column-reverse card text-white m-2" style={{
+                                backgroundImage: `url("/imgs/Cabelo.png")`,
+                                backgroundSize: "cover",
+                                backgroundPosition: "center"
+                            }}>
+                                <div className="glass m-2 p-2">
+                                    <div className="d-flex align-items-center justify-content-between">
+                                        <h3 className="m-0">Kaio Cesar</h3>
+                                        <p className="m-0">Cabeleleiro</p>
+                                    </div>
+                                    <small className="">Cabeleleiro com 15 anos de salão</small>
+                                    <div>
+                                        <i className="bi bi-instagram"></i>
+                                        <i className="bi bi-facebook"></i>
+                                    </div>
+                                </div>
+
+                            </article>
+
+
+                        </div>
+
+                        <ButtonGold value="Ver Todos"></ButtonGold>
+
+                    </div>
+                </section>
             </main>
+            <Footer></Footer>
         </>
     )
 }
