@@ -1,28 +1,18 @@
-const API_BASE_URL = "https://localhost:7175/api";
+import axios from "axios";
+import secureLocalStorage from "react-secure-storage";
 
-type RequestBody = Record<string, unknown>;
+const apiLocal = "https://localhost:7175/api/"
 
-export async function apiPost<TResponse>(path: string, body: RequestBody): Promise<TResponse> {
-    const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+export const api = axios.create({
+    baseURL: apiLocal,
+})
 
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify(body),
-    });
+api.interceptors.request.use((config)=> {
+    const token = secureLocalStorage.getItem("token")
 
-    if (!response.ok) {
-        throw new Error("Erro na requisicao");
+    if(token){
+        config.headers.Authorization = `Bearer ${token}`
     }
 
-    const text = await response.text();
-
-    if (!text) {
-        return undefined as TResponse;
-    }
-
-    return JSON.parse(text) as TResponse;
-}
+    return config;
+})

@@ -1,10 +1,12 @@
-import { apiPost } from "@/services/api";
+import {api} from "@/pages/api/api";
 
-export async function cadastro(nome: string, telefone: string, email: string, senha: string) {
-    await apiPost("/Cliente", {
-        nome,
-        telefone,
-        email,
-        senha,
-    });
+
+export async function getAgendamentos(){
+    try{
+        const response = await api.get("Agendamento");
+
+        return response.data;
+    }catch(err:any){
+        throw new Error(err.message);
+    }
 }

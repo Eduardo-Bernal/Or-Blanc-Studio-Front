@@ -1,19 +1,23 @@
-import { apiPost } from "@/services/api";
-
-type AuthResponse = {
-    token: string;
-};
+import secureLocalStorage from "react-secure-storage";
+import {router} from "next/client";
+import {api} from "@/pages/api/api";
 
 export async function auth(email: string, senha: string) {
-    const response = await apiPost<AuthResponse>("/Autenticacao/login", {
-        email,
-        senha,
-    });
+    try {
+        const response = await api.post("/Autenticacao/login", {
+            email,
+            senha
+        });
 
-    localStorage.setItem("token", response.token);
+        const token = response.data.token;
+
+        secureLocalStorage.setItem("token", token);
+    } catch (e: any) {
+        throw new Error(e.message);
+    }
 }
 
-export function sair() {
-    localStorage.clear();
-    window.location.href = "/login";
+export async function sair() {
+    secureLocalStorage.clear();
+    router.push("/login");
 }
