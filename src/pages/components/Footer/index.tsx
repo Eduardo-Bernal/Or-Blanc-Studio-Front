@@ -29,11 +29,11 @@ export default function Footer() {
 
                     <div className="col-3 d-flex justify-content-end gap-3">
                         <a href="#" className="text-white">
-                            <i className="bi bi-instagram"></i>
+                            <img src="/imgs/instagram.png" alt=""/>
                         </a>
 
                         <a href="#" className="text-white">
-                            <i className="bi bi-facebook"></i>
+                            <img src="/imgs/facebook.png" alt=""/>
                         </a>
                     </div>
                 </div>
