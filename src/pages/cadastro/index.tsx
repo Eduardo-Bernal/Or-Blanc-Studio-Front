@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {erro, notificacao} from "@/utils/toast";
-import {cadastro} from "@/services/cadastroService";
+import {cadastro} from "@/pages/api/cadastroService";
 
 
 export default function Cadastro() {
@@ -36,7 +36,7 @@ export default function Cadastro() {
     }
 
     return (
-        <main style={{ backgroundColor: "#353535" }} className="container-fluid vh-100">
+        <main style={{ backgroundColor: "var(--preto-fundo)" }} className="container-fluid vh-100">
             <div className="row h-100 p-3">
                 <div className="col-lg-6 d-flex align-items-center justify-content-center">
                     <div className="w-100" style={{ maxWidth: "420px" }}>

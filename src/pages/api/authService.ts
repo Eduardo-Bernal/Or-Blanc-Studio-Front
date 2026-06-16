@@ -1,4 +1,4 @@
-import { apiPost } from "@/services/api";
+import { apiPost } from "@/pages/api/api";
 
 type AuthResponse = {
     token: string;
