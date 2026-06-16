@@ -1,4 +1,4 @@
-import { apiPost } from "@/services/api";
+import { apiPost } from "@/pages/api/api";
 
 export async function cadastro(nome: string, telefone: string, email: string, senha: string) {
     await apiPost("/Cliente", {
