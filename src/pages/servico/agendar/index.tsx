@@ -79,6 +79,15 @@ export default function Agendar() {
                                                 ).toLocaleDateString("pt-BR")}
                                             </td>
 
+                                            <td>
+                                                {new Date(
+                                                    agendamento.data_hora_inicio
+                                                ).toLocaleTimeString("pt-BR", {
+                                                    hour: "2-digit",
+                                                    minute: "2-digit"
+                                                })}
+                                            </td>
+
                                             <td>{agendamento.status}</td>
                                         </tr>
                                     ))
