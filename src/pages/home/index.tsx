@@ -8,7 +8,7 @@ const Home = () => {
             <Header></Header>
             <main className=" d-flex align-items-center flex-column" style={{backgroundColor: "var(--preto-fundo)"}}>
                 {/* BANNER */}
-                <section className="h-75 d-flex align-items-center flex-column justify-content-center container">
+                <section className="h-100 mt-5 d-flex align-items-center flex-column justify-content-center container">
                     <img className="h-100 col-12 object-fit-lg-cover rounded-4" src="/imgs/ImageHome.png" alt=""/>
                     <div className="col-10 position-relative d-flex justify-content-between p-4 z-3 glass"
                          style={{bottom: "50px"}}>
@@ -26,8 +26,8 @@ const Home = () => {
                 </section>
 
                 {/* SERVIÇOS */}
-                <section className="vh-100 d-flex align-items-center flex-column justify-content-center container">
-                    <h2 className="">Nossos Serviços</h2>
+                <section className="vh-100 d-flex align-items-center flex-column justify-content-around container">
+                    <h2 className="titulo text-center">Nossos Serviços</h2>
                     <div className="col-12 h-75 d-flex justify-content-between z-3">
                         <div className="d-flex col-8">
                             <img className="card bg-transparent object-fit-cover p-2" style={{height: "100%"}}
@@ -107,22 +107,22 @@ const Home = () => {
                 </section>
 
                 {/*Profissionais*/}
-                <section className="text-white vh-100 col-12 container">
-                    <h2 className="text-center"> Especialistas em Beleza <br/> <strong>Nossa Equipe</strong></h2>
+                <section className="text-white vh-100 col-12 container d-flex flex-column justify-content-around">
+                    <h2 className="text-center "> Especialistas em Beleza <br/> <strong className="titulo">Nossa Equipe</strong></h2>
                     <div className="h-75 col-12 d-flex flex-column gap-1">
                         <div className="h-100 d-flex">
-                            <article className="h-75 col-4 d-flex flex-column-reverse card text-white m-2" style={{
+                            <article className=" col-4 d-flex flex-column-reverse card text-white m-2" style={{
                                 backgroundImage: `url("/imgs/Cabelo.png")`,
                                 backgroundSize: "cover",
                                 backgroundPosition: "center"
                             }}>
-                                <div className="glass m-2 p-2">
+                                <div className="glass m-2 p-2 h-auto d-flex flex-column gap-2">
                                     <div className="d-flex align-items-center justify-content-between">
                                         <h3 className="m-0">Kaio Cesar</h3>
                                         <p className="m-0">Cabeleleiro</p>
                                     </div>
                                     <small className="">Cabeleleiro com 15 anos de salão</small>
-                                    <div>
+                                    <div className="d-flex gap-2">
                                         <i className="bi bi-instagram"></i>
                                         <i className="bi bi-facebook"></i>
                                     </div>
@@ -135,6 +135,55 @@ const Home = () => {
 
                         <ButtonGold value="Ver Todos"></ButtonGold>
 
+                    </div>
+                </section>
+
+                {/*AVALIAÇÕES*/}
+                <section className="text-white vh-100 col-12 container d-flex flex-column justify-content-around ">
+                    <h2 className="text-center titulo">Avaliações</h2>
+                    <iframe className="col-12 h-50" src="https://br.pinterest.com/pin/1829656094470722/">
+
+                    </iframe>
+                    <div className="d-flex">
+                        <div className="card col-4 bg-transparent border border-0 text-white p-2">
+                            <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
+                                <h3>Luana Valentina</h3>
+                                <div className="d-flex gap-1 titulo">
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                </div>
+                            </div>
+                            <p className="text-center">“Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum”</p>
+                        </div>
+                        <div className="card col-4 bg-transparent border border-0 text-white p-2">
+                            <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
+                                <h3>Luana Valentina</h3>
+                                <div className="d-flex gap-1 titulo">
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                </div>
+                            </div>
+                            <p className="text-center">“Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum”</p>
+                        </div>
+                        <div className="card col-4 bg-transparent border border-0 text-white p-2">
+                            <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
+                                <h3>Luana Valentina</h3>
+                                <div className="d-flex gap-1 titulo">
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                    <i className="bi bi-star"></i>
+                                </div>
+                            </div>
+                            <p className="text-center">“Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum”</p>
+                        </div>
                     </div>
                 </section>
             </main>
