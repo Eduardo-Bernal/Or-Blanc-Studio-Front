@@ -56,7 +56,7 @@ export default function Agendar() {
                 className="py-5"
             >
                 <Tabela
-                    titulo="Agendamentos"
+                    titulo="Serviços Agendamentos"
                     dados={dadosTabela}
                     hasFilter={true}
                 />
