@@ -1,7 +1,4 @@
 
-<<<<<<< HEAD
-export { default } from "./home";
-=======
 import "bootstrap/dist/css/bootstrap.min.css";
 import type { AppProps } from "next/app";
 import { Cinzel, Tenor_Sans } from "next/font/google";
@@ -25,4 +22,3 @@ export default function App({ Component, pageProps }: AppProps) {
         </main>
     );
 }
->>>>>>> agenda
