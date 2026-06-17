@@ -1,0 +1,188 @@
+:root {
+    --cinza-claro: #e0e0e0;
+    --cinza-escuro: #2a2a2a;
+}
+
+.agendaMain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--preto-fundo);
+    padding: 40px 20px;
+}
+
+.agendaContent {
+    width: 85%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.tabelaContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.02);
+    padding: 30px;
+    border: 1px solid #444;
+}
+
+.tabelaHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.tabelaTitulo {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dourado-titulo);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.btnFiltro {
+    background: linear-gradient(135deg, #d4af37 0%, #f0d977 100%);
+    color: #1a1a1a;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.btnFiltro:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(212, 175, 55, 0.3);
+}
+
+.icon {
+    font-size: 14px;
+}
+
+.tabelaCustom {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--cinza-claro);
+    font-size: 14px;
+}
+
+.tabelaCustom thead {
+    border-bottom: 2px solid #444;
+}
+
+.tabelaCustom thead tr {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.tabelaCustom th {
+    padding: 16px 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--cinza-claro);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #444;
+}
+
+.tabelaCustom tbody tr {
+    border-bottom: 1px solid #444;
+    transition: background-color 0.2s ease;
+}
+
+.tabelaCustom tbody tr:hover {
+    background-color: rgba(212, 175, 55, 0.05);
+}
+
+.tabelaCustom td {
+    padding: 14px 15px;
+    color: var(--cinza-claro);
+    font-weight: 400;
+}
+
+.tabelaCustom tbody tr:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .agendaContent {
+        width: 95%;
+        gap: 30px;
+    }
+
+    .tabelaContainer {
+        padding: 20px;
+    }
+
+    .tabelaHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .btnFiltro {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tabelaTitulo {
+        font-size: 16px;
+    }
+
+    .tabelaCustom {
+        font-size: 12px;
+    }
+
+    .tabelaCustom th,
+    .tabelaCustom td {
+        padding: 10px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .agendaMain {
+        min-height: auto;
+        padding: 20px 10px;
+    }
+
+    .agendaContent {
+        width: 100%;
+        gap: 20px;
+    }
+
+    .tabelaContainer {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .tabelaTitulo {
+        font-size: 14px;
+    }
+
+    .tabelaCustom {
+        font-size: 11px;
+    }
+
+    .tabelaCustom th,
+    .tabelaCustom td {
+        padding: 8px 6px;
+    }
+
+    .btnFiltro {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
