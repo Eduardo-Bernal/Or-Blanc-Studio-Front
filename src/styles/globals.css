@@ -84,3 +84,11 @@ a {
   webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
+
+.input {
+  background-color: var(--background);
+  border: none;
+  border-radius: 8px;
+  width: 100vh;
+  padding: 10px;
+}
