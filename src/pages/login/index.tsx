@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { auth } from "@/services/authService";
+import { auth } from "@/pages/api/authService";
 import { erro, notificacao } from "@/utils/toast";
 
 export default function Login() {

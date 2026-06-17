@@ -23,13 +23,14 @@ export default function Tabela({titulo, dados, hasFilter}: TabelaProps) {
             <div className={styles.agendaContent}>
                 <div className={styles.tabelaContainer}>
                     <div className={styles.tabelaHeader}>
-                        <h3 className={styles.tabelaTitulo}>{titulo}</h3>
-                        {hasFilter &&
-                            <button className={styles.btnFiltro}>
-                            <span className={styles.icon}><i className="bi bi-filter"></i></span>
-                            Filtrar
-                        </button>}
+                        <h3 style={{color:"white"}} className={styles.tabelaTitulo}>{titulo}</h3>
 
+                        {hasFilter && (
+                            <button className={styles.btnFiltro}>
+                                <span className={styles.icon}><i className="bi bi-filter"></i></span>
+                                Filtrar
+                            </button>
+                        )}
                     </div>
 
                     <table className={styles.tabelaCustom}>
