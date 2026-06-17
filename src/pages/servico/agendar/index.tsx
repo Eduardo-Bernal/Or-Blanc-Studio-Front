@@ -58,6 +58,7 @@ export default function Agendar() {
                 <Tabela
                     titulo="Agendamentos"
                     dados={dadosTabela}
+                    hasFilter={true}
                 />
             </main>
 
