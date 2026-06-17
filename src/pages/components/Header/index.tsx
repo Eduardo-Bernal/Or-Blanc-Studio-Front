@@ -47,7 +47,7 @@ export default function Header() {
                         <div className="p-4">
                             <ButtonGold
                                 type="submit"
-                                value="login"
+                                value="Login"
                             />
                         </div>
 

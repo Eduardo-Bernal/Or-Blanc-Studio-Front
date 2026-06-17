@@ -18,7 +18,7 @@ export default function Visualizar() {
                         src="/imgs/cabelo_mulher.png"
                         alt="Serviço de cabelo"
                         className={styles.imagem}
-                    />
+                    /> 
 
                     <h1 className={styles.nome_servico}>
                         BABY LISS
