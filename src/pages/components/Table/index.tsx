@@ -22,7 +22,7 @@ export default function Tabela({titulo, dados}: TabelaProps) {
             <div className={styles.agendaContent}>
                 <div className={styles.tabelaContainer}>
                     <div className={styles.tabelaHeader}>
-                        <h3 className={styles.tabelaTitulo}>{titulo}</h3>
+                        <h3 style={{color:"white"}} className={styles.tabelaTitulo}>{titulo}</h3>
 
                         <button className={styles.btnFiltro}>
                             <span className={styles.icon}><i className="bi bi-filter"></i></span>
