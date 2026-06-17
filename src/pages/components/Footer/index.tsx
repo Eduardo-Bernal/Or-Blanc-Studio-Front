@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
         <footer
-            className="col-12 px-4"
+            className="col-12 px-4 z-3"
             style={{
                 backgroundColor: "#1D1D1E",
                 minHeight: "100px",
@@ -29,11 +29,11 @@ export default function Footer() {
 
                     <div className="col-3 d-flex justify-content-end gap-3">
                         <a href="#" className="text-white">
-                            <img src="/imgs/instagram.png" alt=""/>
+                            <i className="bi bi-instagram"></i>
                         </a>
 
                         <a href="#" className="text-white">
-                            <img src="/imgs/facebook.png" alt=""/>
+                            <i className="bi bi-facebook"></i>
                         </a>
                     </div>
                 </div>
