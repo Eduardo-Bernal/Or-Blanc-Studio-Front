@@ -13,9 +13,10 @@ interface TabelaProps {
     titulo: string;
     dados: Servico[];
     ehAgendado?: boolean;
+    hasFilter?: boolean;
 }
 
-export default function Tabela({titulo, dados}: TabelaProps) {
+export default function Tabela({titulo, dados, hasFilter}: TabelaProps) {
 
     return (
         <main className={styles.agendaMain}>
@@ -23,11 +24,12 @@ export default function Tabela({titulo, dados}: TabelaProps) {
                 <div className={styles.tabelaContainer}>
                     <div className={styles.tabelaHeader}>
                         <h3 className={styles.tabelaTitulo}>{titulo}</h3>
-
-                        <button className={styles.btnFiltro}>
+                        {hasFilter &&
+                            <button className={styles.btnFiltro}>
                             <span className={styles.icon}><i className="bi bi-filter"></i></span>
                             Filtrar
-                        </button>
+                        </button>}
+
                     </div>
 
                     <table className={styles.tabelaCustom}>

@@ -52,11 +52,13 @@ export default function AgendaUsuario(): ReactNode {
                         titulo="Serviços Agendados"
                         dados={servicosAgendados}
                         ehAgendado={true}
+                        hasFilter={false}
                     />
                     <Tabela
                         titulo="Histórico de Serviços"
                         dados={historicoServicos}
                         ehAgendado={false}
+                        hasFilter={true}
                     />
             <Footer />
         </>
