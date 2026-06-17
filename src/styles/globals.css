@@ -19,6 +19,7 @@ body,
 #__next {
   width: 100%;
   min-height: 100vh;
+  background-color: var(--preto-fundo);
 }
 
 html,
@@ -84,3 +85,4 @@ a {
   webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
+
