@@ -42,7 +42,7 @@ export default function Criar() {
                         id="valor"
                         className={styles.valor}
                         placeholder="0,00"
-                        step="0.01"
+                        step="5,00"
                         min="0"
                     />
                 </div>
