@@ -58,11 +58,11 @@ export default function Agendar() {
                             <table className="table table-dark align-middle mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Cliente</th>
-                                        <th>Serviço</th>
-                                        <th>Data</th>
-                                        <th>Hora</th>
-                                    </tr>
+                                            <th>Cliente</th>
+                                            <th>Serviço</th>
+                                            <th>Data</th>
+                                            <th>Hora</th>
+                                        </tr>
                                 </thead>
 
                                 <tbody>

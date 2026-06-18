@@ -41,6 +41,7 @@
     -webkit-background-clip: text;
     color: transparent;
     font-size:  60px;
+    font-family: 'Cinzel', serif !important;
     
 }
 
@@ -78,19 +79,16 @@
     font-size: 16px;
 }
 
-/* Estilo para quando passar o mouse no input de imagem */
 .imagem_input:hover {
     border-color: #c67700;
     background-color: #333333;
 }
 
-/* Estilo para quando o input estiver em foco */
 .imagem_input:focus {
     outline: none;
     box-shadow: 0 0 0 4px rgba(198, 119, 0, 0.15);
 }
 
-/* Estilização específica do botão "Escolher arquivo" nativo do navegador */
 .imagem_input::-webkit-file-upload-button {
     background: linear-gradient(-90deg, #fcff9e 0%, #c67700 100%);
     color: #000000;
