@@ -1,20 +1,41 @@
-.card{
+.card {
     display: flex;
     flex-direction: column;
-    width: 350px;
-    padding: 25px;
-    border-radius: 8px;
-}
-
-.nome_servico{
-    color: var(--branco);
-}
-
-.descricao{
-    color: var(--branco);
-}
-
-.imagem{
     width: 100%;
-    border-radius: 8px;
+    max-width: 320px;
+    padding: 18px;
+    border-radius: 12px;
+    gap: 12px;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.imagem {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nome_servico {
+    color: var(--branco);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.descricao {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 13px;
+    line-height: 1.4;
+    height: 40px;
+    overflow: hidden;
+}
+
+.footer {
+    margin-top: auto;
 }

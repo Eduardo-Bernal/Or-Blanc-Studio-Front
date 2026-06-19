@@ -1,93 +1,45 @@
+import { useEffect, useState } from "react";
 import Header from "@/pages/components/Header";
 import Footer from "@/pages/components/Footer";
 import styles from "./visualizar.module.css";
-import ButtonGold from "@/pages/components/ButtonGold";
+import CardServico from "@/pages/components/CardServico";
+import { listarServicos } from "@/pages/api/servicoService";
+
+type Servico = {
+    id_servico: number;
+    nome: string;
+    descricao: string;
+    imagemUrl?: string;
+    valor: number;
+    ativo: boolean;
+};
 
 export default function Visualizar() {
+    const [servicos, setServicos] = useState<Servico[]>([]);
+
+    useEffect(() => {
+        async function load() {
+            const data = await listarServicos();
+            setServicos(data);
+        }
+        load();
+    }, []);
+
     return (
         <main className={styles.page_content}>
-            <Header/>
+            <Header />
 
             <h1 className={"titulo"}>
                 Ver Serviço
             </h1>
 
             <div className={styles.conteudo}>
-                <div className={`${styles.card} glass-card`}>
-                    <img
-                        src="/imgs/cabelo_mulher.png"
-                        alt="Serviço de cabelo"
-                        className={styles.imagem}
-                    /> 
-
-                    <h1 className={styles.nome_servico}>
-                        BABY LISS
-                    </h1>
-                    <p className={styles.descricao}>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem </p>
-
-                    <div className="w-100 mt-4">
-                        <ButtonGold
-                            value="Ver mais"
-                        />
-                    </div>
-                </div>
-
-                <div className={`${styles.card} glass-card`}>
-                    <img
-                        src="/imgs/cabelo_mulher.png"
-                        alt="Serviço de cabelo"
-                        className={styles.imagem}
+                {servicos.map((item) => (
+                    <CardServico
+                        key={item.id_servico}
+                        id={item.id_servico}
                     />
-
-                    <h1 className={styles.nome_servico}>
-                        BABY LISS
-                    </h1>
-                    <p className={styles.descricao}>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem </p>
-
-                    <div className="w-100 mt-4">
-                        <ButtonGold
-                            value="Ver mais"
-                        />
-                    </div>
-                </div>
-
-                <div className={`${styles.card} glass-card`}>
-                    <img
-                        src="/imgs/cabelo_mulher.png"
-                        alt="Serviço de cabelo"
-                        className={styles.imagem}
-                    />
-
-                    <h1 className={styles.nome_servico}>
-                        BABY LISS
-                    </h1>
-                    <p className={styles.descricao}>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem </p>
-
-                    <div className="w-100 mt-4">
-                        <ButtonGold
-                            value="Ver mais"
-                        />
-                    </div>
-                </div>
-
-                <div className={`${styles.card} glass-card`}>
-                    <img
-                        src="/imgs/cabelo_mulher.png"
-                        alt="Serviço de cabelo"
-                        className={styles.imagem}
-                    />
-
-                    <h1 className={styles.nome_servico}>
-                        BABY LISS
-                    </h1>
-                    <p className={styles.descricao}>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem </p>
-
-                    <div className="w-100 mt-4">
-                        <ButtonGold
-                            value="Ver mais"
-                        />
-                    </div>
-                </div>
+                ))}
             </div>
 
             <svg className={styles.linha_fundo} width="672" height="551" viewBox="0 0 672 551" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,12 +54,6 @@ export default function Visualizar() {
 
             <svg className={styles.linha_fundo2} width="784" height="503" viewBox="0 0 784 503" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M-285.077 766.951C1.39381 465.068 242.793 285.573 423.049 181.302C497.373 138.309 561.333 108.089 613.791 87.3518C481.306 92.07 266.864 77.2873 -42.5231 4.86804L-41.3834 -1.22519e-05C279.442 75.0965 497.82 88.0904 628.321 81.7365C695.175 56.5033 741.505 47.4907 764.638 46.9753C769.924 46.8576 774.158 47.1769 777.211 47.9185C778.731 48.2877 780.101 48.7952 781.185 49.5097C782.277 50.23 783.285 51.3091 783.572 52.8313C783.857 54.3484 783.316 55.7228 782.568 56.7984C781.825 57.8687 780.736 58.8609 779.448 59.7879C776.863 61.6495 773.001 63.5817 767.948 65.5245C747.723 73.3007 706.225 82.0655 641.588 86.0173C637.598 86.2612 633.52 86.4867 629.353 86.6926C574.804 107.332 506.387 138.87 425.553 185.63C245.77 289.627 4.73907 468.805 -281.451 770.392L-285.077 766.951ZM645.474 80.7602C707.504 76.7047 747.058 68.2001 766.153 60.8583C771.037 58.9807 774.445 57.2301 776.527 55.731C777.573 54.978 778.167 54.3703 778.463 53.9445C778.507 53.8805 778.541 53.8256 778.568 53.7797C778.531 53.7515 778.487 53.7187 778.432 53.6829C778.015 53.4078 777.257 53.0751 776.03 52.7771C773.589 52.184 769.85 51.8602 764.749 51.9739C744.073 52.4345 703.629 59.9856 645.474 80.7602Z" fill="url(#gradiente)"/>
-                <defs>
-                    <linearGradient id="gradiente" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="#fcff9e" />
-                        <stop offset="100%" stopColor="#c67700" />
-                    </linearGradient>
-                </defs>
             </svg>
 
             <Footer/>
