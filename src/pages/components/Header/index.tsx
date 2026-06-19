@@ -1,4 +1,16 @@
+import ButtonGold from "@/pages/components/ButtonGold";
+import {useRouter} from "next/router";
+
+
+
 export default function Header() {
+
+    const router = useRouter();
+
+    function handleLogin() {
+        router.push("/login");
+    }
+
     return (
         <header
             className="col-12 d-flex flex-row justify-content-between px-4"
@@ -42,24 +54,22 @@ export default function Header() {
 
 
                     <div className="col-3 d-flex justify-content-end gap-3">
-                        <button
-                            className="btn px-4"
-                            style={{
-                                background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
-                                color: "#000",
-                                border: "none",
-                                minWidth: "120px",
-                            }}
-                        >
-                            LOGIN
-                        </button>
+                        <div className="p-4">
+                            <ButtonGold
+                                type="button"
+                                value="Login"
+                                onclick={() => {handleLogin()}}
+                            />
+                        </div>
 
-                        <button
-                            className="btn btn-outline-light px-4"
-                            style={{ minWidth: "120px" }}
-                        >
-                            Registre-se
-                        </button>
+                        <div className="p-4">
+                            <button
+                                className="btn btn-outline-light"
+                                style={{ minWidth: "120px" }}
+                            >
+                                Registre-se
+                            </button>
+                        </div>
                     </div>
 
                 </div>
