@@ -3,9 +3,10 @@
 import Header from "@/pages/components/Header";
 import Footer from "@/pages/components/Footer";
 import {ReactNode, useEffect, useState} from "react";
-import styles from "../components/Table/table.module.css";
+import styles from "../../components/Table/table.module.css";
 import Tabela from "@/pages/components/Table";
-import {getAgendamentos} from "@/pages/api/agendamentoService";
+import {getAgendamentoCliente, getAgendamentos} from "@/pages/api/agendamentoService";
+import {useParams} from "next/navigation";
 
 interface IAgendamento {
     id_agendamento: number;
@@ -28,18 +29,24 @@ interface IAgendamento {
 export default function AgendaUsuario(): ReactNode {
     const [agendamentos, setAgendamentos] = useState<IAgendamento[]>([]);
 
-    useEffect(() => {
-        carregarAgendamentos();
-    }, []);
+    const params = useParams();
+    const id = params?.id;
+
+
 
     async function carregarAgendamentos() {
         try {
-            const response = await getAgendamentos();
+            console.log(params);
+            const response = await getAgendamentoCliente(String(id));
             setAgendamentos(response);
         } catch (err) {
             console.error(err);
         }
     }
+
+    useEffect(() => {
+        carregarAgendamentos();
+    }, [id]);
 
     const dadosTabela = agendamentos.map((agendamento) => ({
         profissional: agendamento.nome_profissional,
