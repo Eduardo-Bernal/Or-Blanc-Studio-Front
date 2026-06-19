@@ -34,7 +34,7 @@ export default function Visualizar() {
             </h1>
 
             <div className={styles.conteudo}>
-                {servicos.map((item) => (
+                {servicos.slice(-4).map((item) => (
                     <CardServico
                         key={item.id_servico}
                         id={item.id_servico}
