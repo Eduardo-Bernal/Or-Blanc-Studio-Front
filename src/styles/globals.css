@@ -11,6 +11,14 @@
   --dourado-titulo: linear-gradient(-90deg, #fcff9e 0%, #c67700 100%);
   --branco: #ECECEC;
   --preto-input: #353535;
+  --gold-gradient: linear-gradient(
+          90deg,
+          #d99120 0%,
+          #ffac00 25%,
+          #ffc100 50%,
+          #ffaf00 75%,
+          #9b6f10 100%
+  );
 }
 
 @media (prefers-color-scheme: dark) {
@@ -83,10 +91,25 @@ a {
 
 .glass-card {
   /* From https://css.glass */
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.input {
+  background-color: var(--background);
+  border: none;
+  border-radius: 8px;
+  width: 100vh;
+  padding: 10px;
+}
+.gradient-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }

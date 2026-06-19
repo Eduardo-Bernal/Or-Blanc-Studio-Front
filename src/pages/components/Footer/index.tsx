@@ -1,7 +1,7 @@
 export default function Footer() {
     return (
         <footer
-            className="col-12 px-4 z-1"
+            className="col-12 px-4 z-3"
             style={{
                 backgroundColor: "#1D1D1E",
                 minHeight: "100px",

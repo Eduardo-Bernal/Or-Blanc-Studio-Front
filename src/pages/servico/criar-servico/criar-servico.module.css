@@ -1,0 +1,51 @@
+
+.pagina_conteudo{
+    display: flex;
+    align-items: center; 
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    gap: 50px;
+    background-color: var(--preto-fundo) 
+}
+
+.conteudo{
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px;
+/* padding: 30px 20px; */
+
+width: 100%;
+
+            
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.label{
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;      
+    align-self: flex-start;
+}
+
+.titulo_servico{
+    text-align: center;
+  background-image: var(--dourado-titulo);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.container_botao{
+    background: linear-gradient(-90deg, #fcff9e 0%, #c67700 100%);
+    color: #000000;
+    border: none;
+    min-width: 120px;
+    border-radius: 12px ;
+    width: 25vh;    
+}
