@@ -4,10 +4,15 @@ import ButtonGold from "@/pages/components/ButtonGold";
 import {useRouter} from "next/router";
 
 const DetalheServico = () => {
+
+
+
     const router = useRouter();
     const RedirectAgenda = () => {
         router.push("/servico/agendar");
     }
+
+
     return(
         <>
             <Header></Header>
@@ -27,7 +32,7 @@ const DetalheServico = () => {
                     <p className="opacity-75">Transforme seu visual com curvas definidas, movimento natural e brilho
                         intenso. Nossa finalização com Baby Liss proporciona um acabamento
                         sofisticado, valorizando sua beleza com leveza, estilo e durabilidade.</p>
-                    <div className="mt-5"><ButtonGold value="AGENDE AGORA" type={"button"} onclick={RedirectAgenda}></ButtonGold></div>
+                    <div className="mt-5"><ButtonGold value="AGENDE AGORA" type={"button"} onClick={RedirectAgenda}></ButtonGold></div>
                 </div>
                 </div>
                 <svg width="1898" height="273" viewBox="0 0 1898 273" fill="none" xmlns="http://www.w3.org/2000/svg" className="position-absolute z-0" style={{top:'580px'}}  >
