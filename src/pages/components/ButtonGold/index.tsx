@@ -3,15 +3,15 @@
 type ButtonProps = {
     type?: "button" | "submit" | "reset";
     value?: string,
-    onclick?: () => void;
+    onClick?: () => void;
 };
 
-export default function ButtonGold({type = "button", value, onclick }: ButtonProps) {
+export default function ButtonGold({type = "button", value, onClick }: ButtonProps) {
     return (
         <button
             type={type}
-            onClick={onclick}
-            className="btn w-100 py-3 fw-medium mt-4"
+            onClick={onClick}
+            className="btn w-100 py-2 fw-medium"
             style={{
                 background: "linear-gradient(-90deg, #fcff9e 0%, #c67700 100%)",
                 color: "#000",

@@ -1,4 +1,3 @@
-
 import {api} from "@/pages/api/api";
 
 export async function cadastro(nome: string, telefone: string,email: string, senha: string) {

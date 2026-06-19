@@ -1,6 +1,6 @@
 import { useState } from "react";
-import {cadastro} from "@/pages/api/cadastroService";
 import {erro, notificacao} from "@/utils/toast";
+import {cadastro} from "@/pages/api/cadastroService";
 
 
 export default function Cadastro() {

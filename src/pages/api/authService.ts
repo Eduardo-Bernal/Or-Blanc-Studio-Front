@@ -1,4 +1,3 @@
-
 import secureLocalStorage from "react-secure-storage";
 import {router} from "next/client";
 import {api} from "@/pages/api/api";
