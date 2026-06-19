@@ -1,116 +1,69 @@
 import Header from "@/pages/components/Header";
 import Footer from "@/pages/components/Footer";
-import styles from "./visualizar.module.css";
-import ButtonGold from "@/pages/components/ButtonGold";
+import styles from "@/pages/servico/visualizar/visualizar.module.css";
+import { useEffect, useState } from "react";
+import { listarServicos } from "@/pages/api/servicoService";
+import CardServico from "@/pages/components/CardServico";
+
+type Servico = {
+    id_servico: number;
+    nome: string;
+    descricao: string;
+    imagemUrl: string;
+    valor: number;
+    ativo: boolean;
+};
 
 export default function Visualizar() {
+
+    const [servicos, setServicos] = useState<Servico[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+
+        async function load() {
+            try {
+
+                const data = await listarServicos();
+                setServicos(data);
+
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        load();
+
+    }, []);
+
     return (
         <main className={styles.page_content}>
-            <Header/>
 
-            <h1 className={"titulo"}>
+            <Header />
+
+            <h1 className="titulo">
                 Ver Serviço
             </h1>
 
             <div className={styles.conteudo}>
-                <div className={`${styles.card} glass-card`}>
-                    <img
-                        src="/imgs/cabelo_mulher.png"
-                        alt="Serviço de cabelo"
-                        className={styles.imagem}
+
+                {loading && <p>Carregando...</p>}
+
+                {!loading && servicos.map((item) => (
+                    <CardServico
+                        key={item.id_servico}
+                        nome={item.nome}
+                        descricao={item.descricao}
+                        imagemUrl={item.imagemUrl}
                     />
+                ))}
 
-                    <h1 className={styles.nome_servico}>
-                        BABY LISS
-                    </h1>
-                    <p className={styles.descricao}>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem </p>
-
-                    <div className="w-100 mt-4">
-                        <ButtonGold
-                            value="Ver mais"
-                        />
-                    </div>
-                </div>
-
-                <div className={`${styles.card} glass-card`}>
-                    <img
-                        src="/imgs/cabelo_mulher.png"
-                        alt="Serviço de cabelo"
-                        className={styles.imagem}
-                    />
-
-                    <h1 className={styles.nome_servico}>
-                        BABY LISS
-                    </h1>
-                    <p className={styles.descricao}>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem </p>
-
-                    <div className="w-100 mt-4">
-                        <ButtonGold
-                            value="Ver mais"
-                        />
-                    </div>
-                </div>
-
-                <div className={`${styles.card} glass-card`}>
-                    <img
-                        src="/imgs/cabelo_mulher.png"
-                        alt="Serviço de cabelo"
-                        className={styles.imagem}
-                    />
-
-                    <h1 className={styles.nome_servico}>
-                        BABY LISS
-                    </h1>
-                    <p className={styles.descricao}>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem </p>
-
-                    <div className="w-100 mt-4">
-                        <ButtonGold
-                            value="Ver mais"
-                        />
-                    </div>
-                </div>
-
-                <div className={`${styles.card} glass-card`}>
-                    <img
-                        src="/imgs/cabelo_mulher.png"
-                        alt="Serviço de cabelo"
-                        className={styles.imagem}
-                    />
-
-                    <h1 className={styles.nome_servico}>
-                        BABY LISS
-                    </h1>
-                    <p className={styles.descricao}>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem </p>
-
-                    <div className="w-100 mt-4">
-                        <ButtonGold
-                            value="Ver mais"
-                        />
-                    </div>
-                </div>
             </div>
 
-            <svg className={styles.linha_fundo} width="672" height="551" viewBox="0 0 672 551" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="gradiente" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="#fcff9e" />
-                        <stop offset="100%" stopColor="#c67700" />
-                    </linearGradient>
-                </defs>
-                <path d="M390.153 7.40044C450.852 -2.37233 562.202 -2.58874 661.031 7.48345C710.46 12.5209 756.89 20.1453 792.374 30.4844C810.109 35.6519 825.216 41.5271 836.621 48.1592C847.959 54.7519 856.021 62.3126 859.024 71.0293C862.106 79.9772 859.641 89.4325 851.568 99.129C843.548 108.76 829.799 118.914 809.581 129.661C769.107 151.177 701.907 175.489 600.237 202.731C568.134 211.334 538.356 220.207 510.777 229.317C496.645 250.277 477.178 271.45 454.136 291.977C421.883 320.708 382.49 348.293 340.568 372.375C300.299 395.508 257.599 415.459 216.562 430.089C206.413 457.159 205.039 484.298 210.391 510.992C221.14 564.605 259.112 616.884 309.021 663.476C358.883 710.023 420.4 750.652 477.759 780.998L475.421 785.418C417.78 754.923 355.871 714.053 305.609 667.131C255.393 620.253 216.539 567.091 205.488 511.976C200.194 485.568 201.302 458.818 210.48 432.222C168.376 446.748 128.253 455.512 94.5831 456.162C77.5971 456.49 62.1046 454.755 48.7882 450.565C52.105 513.308 58.2422 582.865 72.1915 641.45C79.7969 673.392 89.6961 701.945 102.644 724.315C115.593 746.689 131.47 762.672 150.955 769.862L149.225 774.554C128.255 766.816 111.6 749.772 98.3156 726.819C85.0293 703.864 74.9912 674.792 67.3282 642.608C53.1219 582.943 46.9839 512.146 43.6886 448.797C32.6274 444.596 23.2734 438.508 16.0743 430.272C-0.565283 411.235 -5.04176 381.511 6.21399 339.504C10.6829 322.826 14.5225 309.653 17.8341 299.642C21.1295 289.68 23.9521 282.69 26.4161 278.484C27.6189 276.432 28.913 274.725 30.381 273.773C31.16 273.269 32.1096 272.898 33.1818 272.931C34.277 272.965 35.2076 273.411 35.9386 274.023C37.2719 275.138 38.1455 276.968 38.796 278.876C39.4812 280.886 40.0613 283.43 40.5675 286.409C42.5842 298.279 43.6476 318.481 44.5997 343.898C45.5551 369.403 46.4001 400.275 47.9523 433.729C48.1284 437.526 48.3153 441.355 48.5109 445.213C61.4817 449.593 76.9855 451.501 94.4865 451.163C128.57 450.505 169.605 441.339 212.72 426.145C223.349 399.033 242.512 372.121 271.98 345.935C320.216 303.069 396.109 262.085 507.576 225.109C512.662 217.437 516.995 209.822 520.487 202.309C533.483 174.351 534.757 148.114 520.521 125.495C506.185 102.718 475.768 83.0095 423.943 69.1231C397.859 62.1337 378.785 55.6583 365.807 49.6954C359.321 46.7154 354.272 43.8252 350.611 41.0079C346.994 38.2239 344.481 35.3199 343.493 32.2344C342.439 28.9416 343.245 25.8457 345.378 23.2002C347.415 20.6746 350.664 18.5292 354.695 16.6602C362.791 12.9069 374.997 9.84074 390.153 7.40044ZM32.9376 278.089C32.4714 278.462 31.7216 279.32 30.7296 281.013C28.5528 284.728 25.8658 291.282 22.5812 301.212C19.3126 311.093 15.5016 324.162 11.0441 340.798C-0.0162687 382.076 4.78452 409.758 19.839 426.982C25.9702 433.996 33.91 439.403 43.4093 443.311C43.2529 440.173 43.1017 437.056 42.9581 433.961C41.4048 400.483 40.5564 369.52 39.6036 344.086C38.6476 318.565 37.5881 298.724 35.6378 287.246C35.1523 284.389 34.626 282.139 34.0636 280.489C33.6107 279.161 33.2036 278.44 32.9376 278.089ZM502.844 231.965C395.21 268.256 321.953 308.214 275.301 349.672C247.874 374.045 229.658 398.915 219.045 423.878C258.423 409.532 299.323 390.301 338.077 368.039C379.761 344.094 418.861 316.704 450.811 288.243C471.662 269.669 489.408 250.689 502.844 231.965ZM660.525 12.4581C561.916 2.40838 451.047 2.6608 390.948 12.337C375.906 14.7588 364.252 17.7401 356.798 21.1963C353.054 22.932 350.607 24.6824 349.271 26.3389C348.031 27.8756 347.787 29.2496 348.255 30.71C348.789 32.3778 350.369 34.5117 353.661 37.0459C356.911 39.5468 361.589 42.2556 367.894 45.1524C380.497 50.9431 399.26 57.3323 425.237 64.293C477.537 78.3067 509.425 98.4793 524.752 122.831C540.178 147.341 538.472 175.482 525.022 204.417C522.217 210.451 518.894 216.53 515.103 222.637C541.124 214.168 569.038 205.914 598.943 197.901C700.522 170.683 767.276 146.487 807.234 125.246C827.232 114.615 840.318 104.827 847.726 95.9297C855.079 87.0984 856.632 79.4382 854.297 72.6582C851.882 65.6471 845.089 58.8669 834.108 52.4815C823.194 46.1355 808.517 40.3953 790.976 35.2842C755.907 25.0662 709.815 17.4815 660.525 12.4581Z" fill="url(#gradiente)"/>
-            </svg>
+            <Footer />
 
-            <svg className={styles.linha_fundo2} width="784" height="503" viewBox="0 0 784 503" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M-285.077 766.951C1.39381 465.068 242.793 285.573 423.049 181.302C497.373 138.309 561.333 108.089 613.791 87.3518C481.306 92.07 266.864 77.2873 -42.5231 4.86804L-41.3834 -1.22519e-05C279.442 75.0965 497.82 88.0904 628.321 81.7365C695.175 56.5033 741.505 47.4907 764.638 46.9753C769.924 46.8576 774.158 47.1769 777.211 47.9185C778.731 48.2877 780.101 48.7952 781.185 49.5097C782.277 50.23 783.285 51.3091 783.572 52.8313C783.857 54.3484 783.316 55.7228 782.568 56.7984C781.825 57.8687 780.736 58.8609 779.448 59.7879C776.863 61.6495 773.001 63.5817 767.948 65.5245C747.723 73.3007 706.225 82.0655 641.588 86.0173C637.598 86.2612 633.52 86.4867 629.353 86.6926C574.804 107.332 506.387 138.87 425.553 185.63C245.77 289.627 4.73907 468.805 -281.451 770.392L-285.077 766.951ZM645.474 80.7602C707.504 76.7047 747.058 68.2001 766.153 60.8583C771.037 58.9807 774.445 57.2301 776.527 55.731C777.573 54.978 778.167 54.3703 778.463 53.9445C778.507 53.8805 778.541 53.8256 778.568 53.7797C778.531 53.7515 778.487 53.7187 778.432 53.6829C778.015 53.4078 777.257 53.0751 776.03 52.7771C773.589 52.184 769.85 51.8602 764.749 51.9739C744.073 52.4345 703.629 59.9856 645.474 80.7602Z" fill="url(#gradiente)"/>
-                <defs>
-                    <linearGradient id="gradiente" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="#fcff9e" />
-                        <stop offset="100%" stopColor="#c67700" />
-                    </linearGradient>
-                </defs>
-            </svg>
-
-            <Footer/>
         </main>
-    )
+    );
 }
