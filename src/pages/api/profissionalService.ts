@@ -5,7 +5,7 @@ export async function listarProfissionais(){
         const response = await api.get("Profissional");
 
         return response.data;
-    }catch(err){
+    }catch(err: any){
         throw new Error(err.message);
     }
 }
