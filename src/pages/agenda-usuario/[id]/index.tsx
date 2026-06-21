@@ -36,7 +36,6 @@ export default function AgendaUsuario(): ReactNode {
 
     async function carregarAgendamentos() {
         try {
-            console.log(params);
             const response = await getAgendamentoCliente(String(id));
             setAgendamentos(response);
         } catch (err) {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import secureLocalStorage from "react-secure-storage";
 
-const apiLocal = "https://localhost:5000/api/"
+const apiLocal = "https://localhost:7175/api/"
 
 export const api = axios.create({
     baseURL: apiLocal,
