@@ -24,6 +24,5 @@ export async function sair() {
 
 export async function estaLogado (){
     const token = secureLocalStorage.getItem("token");
-
     return !!token;
 }
