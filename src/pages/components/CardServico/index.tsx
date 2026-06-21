@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ButtonGold from "@/pages/components/ButtonGold";
 import styles from "./cardServico.module.css";
 import { listarServicoPorID } from "@/pages/api/servicoService";
+import {router} from "next/client";
 
 type Servico = {
     id_servico: number;
@@ -52,7 +53,7 @@ export default function CardServico({ id }: Props) {
             </p>
 
             <div className="w-100 mt-4">
-                <ButtonGold value="Ver mais" />
+                <ButtonGold value="Ver mais" onClick={() => router.push(`/detalhe-servico/${id}`)} />
             </div>
         </div>
     );

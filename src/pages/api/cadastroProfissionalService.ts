@@ -21,6 +21,8 @@ export async function cadastrarProfissional(dados: Profissional) {
     formData.append("senha", dados.senha);
     formData.append("ativo", dados.ativo.toString());
 
+    console.log("Entrou na função")
+
     // evita crash se não tiver imagem
     if (dados.imagem) {
         formData.append("imagem", dados.imagem);
