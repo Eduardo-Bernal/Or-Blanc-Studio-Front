@@ -1,0 +1,11 @@
+import {api} from "@/pages/api/api";
+
+export async function listarProfissionais(){
+    try{
+        const response = await api.get("Profissional");
+
+        return response.data;
+    }catch(err){
+        throw new Error(err.message);
+    }
+}

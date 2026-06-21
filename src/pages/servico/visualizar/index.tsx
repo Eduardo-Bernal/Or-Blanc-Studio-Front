@@ -17,11 +17,13 @@ type Servico = {
 export default function Visualizar() {
     const [servicos, setServicos] = useState<Servico[]>([]);
 
+    async function load() {
+        const data = await listarServicos();
+        setServicos(data);
+    }
+
     useEffect(() => {
-        async function load() {
-            const data = await listarServicos();
-            setServicos(data);
-        }
+
         load();
     }, []);
 
@@ -33,12 +35,9 @@ export default function Visualizar() {
                 Ver Serviço
             </h1>
 
-            <div className={styles.conteudo}>
-                {servicos.slice(-4).map((item) => (
-                    <CardServico
-                        key={item.id_servico}
-                        id={item.id_servico}
-                    />
+            <div className={"d-grid gap-3 z-3"} style={{gridTemplateColumns: "1fr 1fr 1fr 1fr"}}>
+                {servicos.map((servico) => (
+                    <CardServico id={servico.id_servico} key={servico.id_servico}></CardServico>
                 ))}
             </div>
 
