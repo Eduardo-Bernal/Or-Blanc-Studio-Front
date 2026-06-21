@@ -2,10 +2,11 @@ import styles from "@/pages/agendar-servico/agendar-servico.module.css"
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ButtonGold from "../components/ButtonGold";
-import {ReactElement, useEffect, useState} from "react";
-import {listarServicos} from "@/pages/api/servicoService";
-import {listarProfissionais} from "@/pages/api/profissionalService";
-import {agendarServico} from "@/pages/api/agendamentoService";
+import { useEffect, useState } from "react";
+import { listarServicos } from "@/pages/api/servicoService";
+import { listarProfissionais } from "@/pages/api/profissionalService";
+import { agendarServico } from "@/pages/api/agendamentoService";
+import {useAuth} from "@/pages/api/AuthContext";
 
 type Servico = {
     descricao: string;
@@ -24,59 +25,40 @@ type Profissional = {
     telefone: string;
 }
 
-type Agendamento = {
-    id_cliente: string,
-    id_profissional: string,
-    id_servico: number,
-    data_hora_inicio: string,
-    data_hora_fim: string,
-    status: string,
-    observacao: string
-}
-
 const AgendarServico = () => {
+    const { usuario } = useAuth();
 
     const [profissionais, setProfissionais] = useState<Profissional[]>();
     const [servicos, setServicos] = useState<Servico[]>();
-    const [idCliente, setIdCliente] = useState<string>("");
     const [idProfissional, setIdProfissional] = useState<string>("");
     const [idServico, setIdServico] = useState<number>(0);
     const [dataHoraInicio, setDataHoraInicio] = useState<string>("");
     const [dataHoraFim, setDataHoraFim] = useState<string>("");
-    const [status, setStatus] = useState<string>("");
     const [observacao, setObservacao] = useState<string>("");
 
     async function getProfissinais() {
-        try{
+        try {
             const dados = await listarProfissionais();
-
             setProfissionais(dados);
-
-            console.log(dados);
-        }catch (e:any){
+        } catch (e: any) {
             console.log(e);
         }
     }
 
     async function getServicos() {
-        try{
+        try {
             const dados = await listarServicos();
-
             setServicos(dados);
-
-            console.log(dados);
-        }catch (e:any){
+        } catch (e: any) {
             console.log(e);
         }
     }
 
     async function cadastrarAgendamento(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        try{
-            console.log("asdklfjaslkdfjlas");
-
+        try {
             const dados = await agendarServico({
-                id_cliente: idCliente,
+                id_cliente: usuario?.id_cliente ?? "",
                 id_profissional: idProfissional,
                 id_servico: idServico,
                 data_hora_inicio: dataHoraInicio,
@@ -84,17 +66,16 @@ const AgendarServico = () => {
                 observacao,
                 status: "ativo",
             });
-
             console.log(dados);
-        }catch (e:any){
+        } catch (e: any) {
             console.log(e);
         }
     }
 
     useEffect(() => {
         getServicos();
-        getProfissinais()
-    }, [])
+        getProfissinais();
+    }, []);
 
     return (
         <>
@@ -106,7 +87,7 @@ const AgendarServico = () => {
                         <div className={`${styles.div_profissionais_servico}`}>
                             <div className="d-flex flex-column w-50">
                                 <label>Selecione os serviços</label>
-                                <select className="input" name="" id="" value={idServico} onChange={(e) => setIdServico(Number(e.target.value))}>
+                                <select className="input" value={idServico} onChange={(e) => setIdServico(Number(e.target.value))}>
                                     <option>Selecione os serviços</option>
                                     {servicos?.map((servico) => (
                                         <option value={servico.id_servico} key={servico.id_servico}>{servico.nome}</option>
@@ -115,32 +96,28 @@ const AgendarServico = () => {
                             </div>
                             <div className="d-flex flex-column w-50">
                                 <label>Selecione os profissionais</label>
-                                <select className="input" name="" id="" value={idProfissional} onChange={(e) => setIdProfissional(e.target.value)}>
+                                <select className="input" value={idProfissional} onChange={(e) => setIdProfissional(e.target.value)}>
                                     <option value="">Selecione os Profissionais de preferencia...</option>
-                                    {profissionais?.map((profissionais) => (
-                                        <option value={profissionais.id_profissional} key={profissionais.id_profissional}>{profissionais.nome}</option>
+                                    {profissionais?.map((profissional) => (
+                                        <option value={profissional.id_profissional} key={profissional.id_profissional}>{profissional.nome}</option>
                                     ))}
                                 </select>
                             </div>
                         </div>
                         <div className={`${styles.div_profissionais_servico}`}>
-
                             <div className="d-flex flex-column w-50">
                                 <label>Selecione a data inicio</label>
                                 <input className="input" type="datetime-local" value={dataHoraInicio} onChange={event => setDataHoraInicio(event.target.value)} placeholder="Selecione o dia de atendimento"/>
                             </div>
-
                             <div className={"d-flex flex-column w-50"}>
                                 <label>Estimativa para a hora fim</label>
                                 <input className="input" type="datetime-local" value={dataHoraFim} onChange={event => setDataHoraFim(event.target.value)} placeholder="Selecione a hora que deseja iniciar"/>
                             </div>
-
                         </div>
                         <div className={styles.div_observacoes}>
                             <label>Observações</label>
                             <input type="text" value={observacao} onChange={event => setObservacao(event.target.value)} placeholder="Escreva as observações a seguir..."/>
                         </div>
-
                         <div className={styles.div_botao}>
                             <ButtonGold value="Agendar" type="submit"/>
                         </div>
@@ -149,7 +126,7 @@ const AgendarServico = () => {
             </section>
             <Footer/>
         </>
-    )
-}
+    );
+};
 
 export default AgendarServico;
