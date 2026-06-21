@@ -21,3 +21,9 @@ export async function sair() {
     secureLocalStorage.clear();
     router.push("/login");
 }
+
+export async function estaLogado (){
+    const token = secureLocalStorage.getItem("token");
+
+    return !!token;
+}
