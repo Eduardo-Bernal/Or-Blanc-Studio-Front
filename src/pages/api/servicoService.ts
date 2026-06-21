@@ -30,7 +30,7 @@ export async function listarServicos() {
         return servicos;
     }
     catch (error: any) {
-        throw new Error(error);
+        // throw new Error(error);
     }
 }
 

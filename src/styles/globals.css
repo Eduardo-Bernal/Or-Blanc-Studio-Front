@@ -33,6 +33,7 @@ body,
 #__next {
   width: 100%;
   min-height: 100vh;
+  background-color: var(--preto-fundo);
 }
 
 html,
@@ -103,7 +104,7 @@ a {
   background-color: var(--background);
   border: none;
   border-radius: 8px;
-  width: 100vh;
+  width: 100%;
   padding: 10px;
 }
 .gradient-text {
@@ -113,3 +114,4 @@ a {
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+
