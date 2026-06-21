@@ -100,13 +100,11 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
-<<<<<<< HEAD
-=======
 .input {
   background-color: var(--background);
   border: none;
   border-radius: 8px;
-  width: 100vh;
+  width: 100%;
   padding: 10px;
 }
 .gradient-text {
@@ -116,4 +114,4 @@ a {
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
->>>>>>> 3689d5e445c593f6db7a762dd5a6777ffdeefc1c
+
