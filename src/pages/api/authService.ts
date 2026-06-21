@@ -11,11 +11,19 @@ export async function auth(email: string, senha: string) {
 
         const token = response.data.token;
         const nome = response.data.nome;
-        const id_cliente = response.data.id_cliente;
+        const role = response.data.role;
 
         secureLocalStorage.setItem("token", token);
         secureLocalStorage.setItem("nome", nome);
-        secureLocalStorage.setItem("id_cliente", id_cliente);
+        secureLocalStorage.setItem("role", role);
+
+        if (response.data.idCliente) {
+            secureLocalStorage.setItem("id_cliente", response.data.idCliente);
+        }
+
+        if (response.data.idProfissional) {
+            secureLocalStorage.setItem("id_profissional", response.data.idProfissional);
+        }
     } catch (e: any) {
         throw new Error(e.message);
     }

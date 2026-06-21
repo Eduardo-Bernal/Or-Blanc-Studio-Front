@@ -49,6 +49,7 @@ export default function AgendaUsuario(): ReactNode {
 
     const dadosTabela = agendamentos.map((agendamento) => ({
         profissional: agendamento.nome_profissional,
+        cliente: agendamento.nome_cliente,
         servico: agendamento.nome_servico,
         data: new Date(agendamento.data_hora_inicio).toLocaleDateString("pt-BR"),
         hora: new Date(agendamento.data_hora_inicio).toLocaleTimeString("pt-BR", {
@@ -61,6 +62,7 @@ export default function AgendaUsuario(): ReactNode {
         .filter(agendamento => agendamento.status === "Agendado").sort((a, b) => new Date(a.data_hora_inicio).getTime() - new Date(b.data_hora_inicio).getTime())
         .map(agendamento => ({
             profissional: agendamento.nome_profissional,
+            cliente: agendamento.nome_cliente,
             servico: agendamento.nome_servico,
             data: new Date(agendamento.data_hora_inicio).toLocaleDateString("pt-BR"),
             hora: new Date(agendamento.data_hora_inicio).toLocaleTimeString("pt-BR", {
@@ -68,8 +70,6 @@ export default function AgendaUsuario(): ReactNode {
                 minute: "2-digit",
             }),
         }));
-
-    console.log(dadosAgendado);
 
     return (
         <>

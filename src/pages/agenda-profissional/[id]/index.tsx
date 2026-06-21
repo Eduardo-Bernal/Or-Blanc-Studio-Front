@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import {getAgendamentoProfissional, getAgendamentos} from "@/pages/api/agendamentoService";
 import Header from "@/pages/components/Header";
-import Footer from "@/pages/components/Footer";
-import { getAgendamentos } from "@/pages/api/agendamentoService";
 import Tabela from "@/pages/components/Table";
+import Footer from "@/pages/components/Footer";
+import {useParams} from "next/navigation";
+
 
 interface IAgendamento {
     id_agendamento: number;
@@ -24,13 +26,14 @@ interface IAgendamento {
 export default function Agendar() {
     const [agendamentos, setAgendamentos] = useState<IAgendamento[]>([]);
 
-    useEffect(() => {
-        carregarAgendamentos();
-    }, []);
+    const params = useParams();
+    const id= params?.id;
+
+
 
     async function carregarAgendamentos() {
         try {
-            const response = await getAgendamentos();
+            const response = await getAgendamentoProfissional(String(id));
             setAgendamentos(response);
         } catch (err) {
             console.error(err);
@@ -39,6 +42,7 @@ export default function Agendar() {
 
     const dadosTabela = agendamentos.map((agendamento) => ({
         profissional: agendamento.nome_profissional,
+        cliente: agendamento.nome_cliente,
         servico: agendamento.nome_servico,
         data: new Date(agendamento.data_hora_inicio).toLocaleDateString("pt-BR"),
         hora: new Date(agendamento.data_hora_inicio).toLocaleTimeString("pt-BR", {
@@ -46,6 +50,10 @@ export default function Agendar() {
             minute: "2-digit",
         }),
     }));
+
+    useEffect(() => {
+        carregarAgendamentos();
+    }, []);
 
     return (
         <>
@@ -56,7 +64,7 @@ export default function Agendar() {
                 className="py-5"
             >
                 <Tabela
-                    titulo="Serviços Agendamentos"
+                    titulo="Serviços Agendados"
                     dados={dadosTabela}
                     hasFilter={true}
                 />

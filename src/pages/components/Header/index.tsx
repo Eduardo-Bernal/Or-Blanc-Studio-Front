@@ -2,11 +2,19 @@ import ButtonGold from "@/pages/components/ButtonGold";
 import {useRouter} from "next/router";
 import {estaLogado, sair} from "@/pages/api/authService";
 import {useEffect, useState} from "react";
+import secureLocalStorage from "react-secure-storage";
+import Link from "next/link";
 
 export default function Header() {
 
     const router = useRouter();
     const [logado, setLogado] = useState<boolean>(false);
+
+    const [role, setRole] = useState<string | null>(null);
+    const [idCliente, setIdCliente] = useState<string | null>(null);
+    const [idProfissional, setIdProfissional] = useState<string | null>(null);
+
+
 
     function handleLogin() {
         router.push("/login");
@@ -20,10 +28,16 @@ export default function Header() {
         setLogado(await estaLogado());
     }
 
-    useEffect(() => {
+    function setLogin() {
+        setRole(secureLocalStorage.getItem("role") as string);
+        setIdCliente(secureLocalStorage.getItem("id_cliente") as string);
+        setIdProfissional(secureLocalStorage.getItem("id_profissional") as string);
+    }
 
+    useEffect(() => {
         verificarLogin();
-    },);
+        setLogin();
+    }, []);
 
     return (
         <header
@@ -48,21 +62,32 @@ export default function Header() {
 
                     <div className="col-6">
                         <nav className="d-flex justify-content-center gap-4">
-                            <a href="/home" className="text-decoration-none text-white">
+                            <Link href="/home" className="text-decoration-none text-white">
                                 Home
-                            </a>
-                            <a href="/servico/visualizar" className="text-decoration-none text-white">
+                            </Link>
+                            <Link href="/servico/visualizar" className="text-decoration-none text-white">
                                 Serviços
-                            </a>
-                            <a href="/agenda-usuario" className="text-decoration-none text-white">
-                                Agenda
-                            </a>
-                            {/*<a href="/" className="text-decoration-none text-white">*/}
-                            {/*    Equipe*/}
-                            {/*</a>*/}
-                            <a href="/conta" className="text-decoration-none text-white">
+                            </Link>
+                            {
+                                 role === "Cliente" && (
+                                    <Link href={`/agenda-usuario/${idCliente}`} className="text-decoration-none text-white">
+                                        Agenda
+                                    </Link>
+                                 )
+                            }
+                            {
+                                role === "Profissional" && (
+                                    <Link href={`/agenda-profissional/${idProfissional}`} className="text-decoration-none text-white">
+                                        Agenda
+                                    </Link>
+                                )
+                            }
+                            <Link href="/" className="text-decoration-none text-white">
+                                Equipe
+                            </Link>
+                            <Link href="/conta" className="text-decoration-none text-white">
                                 Conta
-                            </a>
+                            </Link>
                         </nav>
                     </div>
 

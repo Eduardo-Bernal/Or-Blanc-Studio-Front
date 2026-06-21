@@ -18,7 +18,7 @@ export default function Login() {
             notificacao("Autenticado com sucesso!");
 
             setTimeout(() => {
-                router.push("/servico/agendar");
+                router.push("/home");
             }, 2000);
         } catch {
             erro("Email ou Senha incorretos.");
