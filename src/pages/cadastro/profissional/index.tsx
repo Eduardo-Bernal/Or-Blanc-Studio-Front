@@ -1,10 +1,13 @@
 import Header from "@/pages/components/Header";
 import Footer from "@/pages/components/Footer";
 import styles from "./profissional.module.css";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {cadastrarProfissional} from "@/pages/api/cadastroProfissionalService";
 import {erro, notificacao} from "@/utils/toast";
 import {ToastContainer} from "react-toastify";
+import {estaLogado} from "@/pages/api/authService";
+import secureLocalStorage from "react-secure-storage";
+import {router} from "next/client";
 
 export default function Profissional() {
 
@@ -15,6 +18,8 @@ export default function Profissional() {
     const [senha, setSenha] = useState("");
     const [imagem, setImagem] = useState<File | null>(null);
     const [ativo] = useState(true);
+    const [logado, setLogado] = useState(false);
+    const [role, setRole] = useState<string | null>(null);
 
 
     const listaEspecialidades = [
@@ -31,6 +36,8 @@ export default function Profissional() {
     ) {
         e.preventDefault();
 
+
+
         try {
 
             const dados = {
@@ -44,13 +51,17 @@ export default function Profissional() {
             };
             console.log(`dados: ${dados.imagem}`);
             await cadastrarProfissional(dados);
-
             notificacao("Profissional cadastrado com sucesso!");
 
         } catch (error) {
             console.log(error);
             erro("Erro ao cadastrar profissional")
         }
+    }
+
+    async function verificarLogin(){
+        setLogado(await estaLogado())
+        setRole(secureLocalStorage.getItem("role") as string);
     }
 
     function gerenciarImagem(
@@ -61,6 +72,23 @@ export default function Profissional() {
         }
     }
 
+    useEffect(() => {
+        verificarLogin()
+    })
+
+    if(!logado || role != "Profissional"){setTimeout(() => {
+        router.push("/login")
+    }, 1500)
+        return(
+            <>
+                <main className="text-center d-flex justify-content-center align-items-center vh-100">
+                    <div>
+                        <h1 className="text-white text-center">Faça login para acessar essa tela</h1>
+                    </div>
+                </main>
+            </>
+        )}
+
     return (
         <>
             <ToastContainer></ToastContainer>
@@ -69,7 +97,7 @@ export default function Profissional() {
             <Header/>
 
             <section className="container">
-                <h1 className="titulo">
+                <h1 className="titulo ">
                     CADASTRAR PROFISSIONAL
                 </h1>
 

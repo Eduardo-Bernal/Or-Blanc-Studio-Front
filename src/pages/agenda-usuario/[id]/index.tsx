@@ -7,6 +7,9 @@ import styles from "../../components/Table/table.module.css";
 import Tabela from "@/pages/components/Table";
 import {getAgendamentoCliente, getAgendamentos} from "@/pages/api/agendamentoService";
 import {useParams} from "next/navigation";
+import {estaLogado} from "@/pages/api/authService";
+import secureLocalStorage from "react-secure-storage";
+import {router} from "next/client";
 
 interface IAgendamento {
     id_agendamento: number;
@@ -28,6 +31,8 @@ interface IAgendamento {
 
 export default function AgendaUsuario(): ReactNode {
     const [agendamentos, setAgendamentos] = useState<IAgendamento[]>([]);
+    const [logado, setLogado] = useState(false);
+    const [role, setRole] = useState<string | null>(null);
 
     const params = useParams();
     const id = params?.id;
@@ -43,8 +48,14 @@ export default function AgendaUsuario(): ReactNode {
         }
     }
 
+    async function verificarLogin(){
+        setLogado(await estaLogado())
+        setRole(secureLocalStorage.getItem("role") as string);
+    }
+
     useEffect(() => {
         carregarAgendamentos();
+        verificarLogin();
     }, [id]);
 
     const dadosTabela = agendamentos.map((agendamento) => ({
@@ -71,6 +82,21 @@ export default function AgendaUsuario(): ReactNode {
             }),
         }));
 
+    if(!logado || role != "Profissional") {
+        setTimeout(() => {
+            router.push("/login")
+        }, 1500)
+        return (
+            <>
+                <main className="text-center d-flex justify-content-center align-items-center vh-100">
+                    <div>
+                    <h1 className="text-white text-center">Faça login para acessar essa tela</h1>
+                    </div>
+                </main>
+            </>
+        )
+    }
+
     return (
         <>
             <Header />
@@ -90,5 +116,5 @@ export default function AgendaUsuario(): ReactNode {
             </main>
             <Footer />
         </>
-    );
+    )
 }
