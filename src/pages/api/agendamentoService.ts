@@ -8,6 +8,7 @@ interface IAgendamento {
     data_hora_fim: string,
     status: string,
     observacao: string
+    id_agendamento: string,
 }
 
 export async function getAgendamentos(){
@@ -53,5 +54,13 @@ export async function agendarServico(agendamento:IAgendamento){
 
     }catch (e:any){
         throw new Error(e.message);
+    }
+}
+
+export async function cancelarAgendamento(id: number){
+    try{
+        await api.delete(`Agendamento/${id}/cancelar`);
+    }catch(err:any){
+        throw new Error(err.message);
     }
 }

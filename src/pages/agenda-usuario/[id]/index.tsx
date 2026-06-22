@@ -5,8 +5,9 @@ import Footer from "@/pages/components/Footer";
 import {ReactNode, useEffect, useState} from "react";
 import styles from "../../components/Table/table.module.css";
 import Tabela from "@/pages/components/Table";
-import {getAgendamentoCliente, getAgendamentos} from "@/pages/api/agendamentoService";
+import {cancelarAgendamento, getAgendamentoCliente, getAgendamentos} from "@/pages/api/agendamentoService";
 import {useParams} from "next/navigation";
+import {erro, notificacao} from "@/utils/toast";
 
 interface IAgendamento {
     id_agendamento: number;
@@ -33,13 +34,22 @@ export default function AgendaUsuario(): ReactNode {
     const id = params?.id;
 
 
-
     async function carregarAgendamentos() {
         try {
             const response = await getAgendamentoCliente(String(id));
             setAgendamentos(response);
         } catch (err) {
             console.error(err);
+        }
+    }
+
+    async function deletarAgendamento(id: number) {
+        try {
+            await cancelarAgendamento(id);
+
+            notificacao("Agendamento cancelado com sucesso!")
+        } catch (e: any) {
+            erro(e.message)
         }
     }
 
@@ -56,11 +66,13 @@ export default function AgendaUsuario(): ReactNode {
             hour: "2-digit",
             minute: "2-digit",
         }),
-    }));
 
+    }));
     const dadosAgendado = agendamentos
-        .filter(agendamento => agendamento.status === "Agendado").sort((a, b) => new Date(a.data_hora_inicio).getTime() - new Date(b.data_hora_inicio).getTime())
+        .filter(agendamento => agendamento.status === "Agendado")
+        .sort((a, b) => new Date(a.data_hora_inicio).getTime() - new Date(b.data_hora_inicio).getTime())
         .map(agendamento => ({
+            id: agendamento.id_agendamento,
             profissional: agendamento.nome_profissional,
             cliente: agendamento.nome_cliente,
             servico: agendamento.nome_servico,
@@ -73,22 +85,25 @@ export default function AgendaUsuario(): ReactNode {
 
     return (
         <>
-            <Header />
-            <main style={{minHeight:'78.7vh', backgroundColor:'var(--preto-fundo)'}}>
-                    <Tabela
-                        titulo="Serviços Agendados"
-                        dados={dadosAgendado}
-                        ehAgendado={true}
-                        hasFilter={false}
-                    />
-                    <Tabela
-                        titulo="Histórico de Serviços"
-                        dados={dadosTabela}
-                        ehAgendado={false}
-                        hasFilter={true}
-                    />
+            <Header/>
+            <main style={{minHeight: '78.7vh', backgroundColor: 'var(--preto-fundo)'}}>
+                <Tabela
+                    titulo="Serviços Agendados"
+                    dados={dadosAgendado}
+                    ehAgendado={true}
+                    hasFilter={false}
+                    hasDeleted={true}
+                    onClick={(id:number) => deletarAgendamento(id)}
+                />
+                <Tabela
+                    titulo="Histórico de Serviços"
+                    dados={dadosTabela}
+                    ehAgendado={false}
+                    hasFilter={true}
+                    hasDeleted={false}
+                />
             </main>
-            <Footer />
+            <Footer/>
         </>
     );
 }
