@@ -9,6 +9,7 @@ import { agendarServico } from "@/pages/api/agendamentoService";
 import {useAuth} from "@/pages/api/AuthContext";
 import {router} from "next/client";
 import {useRouter} from "next/router";
+import {erro, notificacao} from "@/utils/toast";
 
 type Servico = {
     descricao: string;
@@ -71,11 +72,12 @@ const AgendarServico = () => {
                 observacao,
                 status: "ativo",
             });
+            notificacao("Agendamento realizado com sucesso!");
             setTimeout(() =>
             {router.push("/home")}
                 , 500)
         } catch (e: any) {
-            console.log(e);
+            erro(e.response.data)
         }
     }
 

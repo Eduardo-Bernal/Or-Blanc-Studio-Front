@@ -3,6 +3,8 @@ import Footer from "@/pages/components/Footer";
 import styles from "./profissional.module.css";
 import {useState} from "react";
 import {cadastrarProfissional} from "@/pages/api/cadastroProfissionalService";
+import {erro, notificacao} from "@/utils/toast";
+import {ToastContainer} from "react-toastify";
 
 export default function Profissional() {
 
@@ -43,20 +45,11 @@ export default function Profissional() {
             console.log(`dados: ${dados.imagem}`);
             await cadastrarProfissional(dados);
 
-            alert("Profissional cadastrado com sucesso!");
-
-
-            // limpa formulário
-            // setNome("");
-            // setEmail("");
-            // setTelefone("");
-            // setEspecialidade("");
-            // setSenha("");
-            // setImagem(null);
+            notificacao("Profissional cadastrado com sucesso!");
 
         } catch (error) {
             console.log(error);
-            alert("Erro ao cadastrar profissional")
+            erro("Erro ao cadastrar profissional")
         }
     }
 
@@ -69,6 +62,8 @@ export default function Profissional() {
     }
 
     return (
+        <>
+            <ToastContainer></ToastContainer>
         <main className={styles.page_content}>
 
             <Header/>
@@ -82,6 +77,37 @@ export default function Profissional() {
                     className={styles.formulario}
                     onSubmit={salvarProfissional}
                 >
+
+                    <div>
+                        <label className={styles.label}>
+                            E-mail
+                        </label>
+
+                        <input
+                            className={styles.campo}
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Digite seu e-mail"
+                        />
+
+                    </div>
+
+                    <div>
+                        <label className={styles.label}>
+                            Senha
+                        </label>
+
+                        <input
+                            className={styles.campo}
+                            type="password"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            placeholder="Digite sua senha"
+                        />
+
+                    </div>
+
 
                     <div>
                         <label className={styles.label}>
@@ -112,37 +138,6 @@ export default function Profissional() {
                             placeholder="(11)99999-9999"
                             maxLength={15}
                         />
-                    </div>
-
-                    <div>
-                        <label className={styles.label}>
-                            Senha
-                        </label>
-
-                        <input
-                            className={styles.campo}
-                            type="password"
-                            value={senha}
-                            onChange={(e) => setSenha(e.target.value)}
-                            placeholder="Digite sua senha"
-                        />
-
-                    </div>
-
-
-                    <div>
-                        <label className={styles.label}>
-                            E-mail
-                        </label>
-
-                        <input
-                            className={styles.campo}
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Digite seu e-mail"
-                        />
-
                     </div>
 
 
@@ -201,5 +196,6 @@ export default function Profissional() {
             <Footer/>
 
         </main>
+        </>
     );
 }
