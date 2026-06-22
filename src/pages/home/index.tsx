@@ -139,52 +139,60 @@ const Home = () => {
                 </section>
 
                 {/*AVALIAÇÕES*/}
-                <section className="text-white vh-100 col-12 container d-flex flex-column justify-content-around ">
+            <section id="avaliacoes" className="text-white vh-100 col-12 container d-flex flex-column justify-content-around ">
                     <h2 className="text-center titulo">Avaliações</h2>
                     <iframe className="col-12 h-50" src="https://br.pinterest.com/pin/1829656094470722/">
 
                     </iframe>
-                    <div className="d-flex">
-                        <div className="card col-4 bg-transparent border border-0 text-white p-2">
-                            <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
-                                <h3>Luana Valentina</h3>
-                                <div className="d-flex gap-1 titulo">
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                </div>
+                <div className="d-flex">
+                    <div className="card col-4 bg-transparent border border-0 text-white p-2">
+                        <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
+                            <h3>Jucelinda</h3>
+                            <div className="d-flex gap-1 titulo">
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
                             </div>
-                            <p className="text-center">“Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum”</p>
                         </div>
-                        <div className="card col-4 bg-transparent border border-0 text-white p-2">
-                            <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
-                                <h3>Luana Valentina</h3>
-                                <div className="d-flex gap-1 titulo">
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                </div>
-                            </div>
-                            <p className="text-center">“Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum”</p>
-                        </div>
-                        <div className="card col-4 bg-transparent border border-0 text-white p-2">
-                            <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
-                                <h3>Luana Valentina</h3>
-                                <div className="d-flex gap-1 titulo">
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                    <i className="bi bi-star"></i>
-                                </div>
-                            </div>
-                            <p className="text-center">“Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum”</p>
-                        </div>
+                        <p className="text-center">
+                            “Atendimento excelente e muito profissional. Saí do salão extremamente satisfeita com o resultado e com o cuidado da equipe.”
+                        </p>
                     </div>
+
+                    <div className="card col-4 bg-transparent border border-0 text-white p-2">
+                        <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
+                            <h3>Kessia</h3>
+                            <div className="d-flex gap-1 titulo">
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                        <p className="text-center">
+                            “Ambiente agradável, profissionais atenciosos e serviço de alta qualidade. Recomendo para quem busca um atendimento diferenciado.”
+                        </p>
+                    </div>
+
+                    <div className="card col-4 bg-transparent border border-0 text-white p-2">
+                        <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
+                            <h3>Samanta</h3>
+                            <div className="d-flex gap-1 titulo">
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                        <p className="text-center">
+                            “Adorei minha experiência. Desde o atendimento até o resultado final, tudo foi realizado com muito cuidado e atenção aos detalhes.”
+                        </p>
+                    </div>
+                </div>
                 </section>
             </main>
             <Footer></Footer>
