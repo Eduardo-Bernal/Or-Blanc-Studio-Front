@@ -8,6 +8,7 @@ import {ToastContainer} from "react-toastify";
 import {estaLogado} from "@/pages/api/authService";
 import secureLocalStorage from "react-secure-storage";
 import {router} from "next/client";
+import Link from "next/link";
 
 export default function Profissional() {
 
@@ -49,13 +50,11 @@ export default function Profissional() {
                 imagem,
                 ativo
             };
-            console.log(`dados: ${dados.imagem}`);
             await cadastrarProfissional(dados);
             notificacao("Profissional cadastrado com sucesso!");
 
-        } catch (error) {
-            console.log(error);
-            erro("Erro ao cadastrar profissional")
+        } catch (error: any) {
+            erro("Erro ao cadastrar profissional" + error.response.data)
         }
     }
 
@@ -76,14 +75,13 @@ export default function Profissional() {
         verificarLogin()
     })
 
-    if(!logado || role != "Profissional"){setTimeout(() => {
-        router.push("/login")
-    }, 1500)
+    if(!logado || role != "Profissional"){
         return(
             <>
                 <main className="text-center d-flex justify-content-center align-items-center vh-100">
                     <div>
                         <h1 className="text-white text-center">Faça login para acessar essa tela</h1>
+                        <Link href="/home" className="text-white">Retornar para a página principal</Link>
                     </div>
                 </main>
             </>
