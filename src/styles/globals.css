@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   --background: #353535;
   --foreground: #171717;
@@ -27,6 +33,7 @@ body,
 #__next {
   width: 100%;
   min-height: 100vh;
+  background-color: var(--preto-fundo);
 }
 
 html,
@@ -97,10 +104,9 @@ a {
   background-color: var(--background);
   border: none;
   border-radius: 8px;
-  width: 100vh;
+  width: 100%;
   padding: 10px;
 }
-
 .gradient-text {
   background: var(--gold-gradient);
   -webkit-background-clip: text;
@@ -108,3 +114,13 @@ a {
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+
+.link{
+  text-decoration: none;
+  color: white;
+}
+
+.link:hover{
+  border-bottom: 2px solid white;
+}
+

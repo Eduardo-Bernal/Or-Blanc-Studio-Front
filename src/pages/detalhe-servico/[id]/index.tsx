@@ -1,0 +1,80 @@
+import Header from "@/pages/components/Header";
+import Footer from "@/pages/components/Footer";
+import ButtonGold from "@/pages/components/ButtonGold";
+import {useRouter} from "next/router";
+import {useEffect, useState} from "react";
+import {listarServicoPorID} from "@/pages/api/servicoService";
+import {useParams} from "next/navigation";
+
+type Servico = {
+    id: number;
+    nome: string;
+    descricao: string;
+    imagemUrl?: string;
+    valor: number;
+}
+
+const DetalheServico = () => {
+
+    const [servico, setServico] = useState<Servico>();
+
+    const router = useRouter();
+    const params = useParams();
+    const id = params?.id;
+    const RedirectAgenda = () => {
+        router.push("/agendar-servico");
+    }
+
+    async function obterServicoId(){
+        try{
+             const dados = await listarServicoPorID(Number(id));
+
+             setServico(dados);
+        }catch (e:any){
+            console.log(e);
+        }
+    }
+
+    console.log(servico);
+
+    useEffect(() => {
+        obterServicoId();
+    }, [id])
+    return(
+        <>
+            <Header></Header>
+            <main className="d-flex  flex-row align-items-center justify-content-center container-fluid text-white" style={{height:'78.7vh', backgroundColor:'var(--preto-fundo)'}}>
+                <div style={{width:'80%'}} className="d-flex flex-row align-items-center z-2">
+                <div className="col-6">
+                    <div className="position-absolute z-1" style={{border:"1px solid #DBB002",
+                                 width:'420px',
+                                 height:'420px',
+                                 borderRadius:'10px',
+                    }}></div>
+                    <img className="position-relative z-2" src={servico?.imagemUrl ? servico.imagemUrl : "/imgs/loirinhaCovarde.png"} alt="Mulher modelo"
+                    style={{width:'420px',
+                        height:'420px',
+                        borderRadius:'10px',
+                        objectFit:'cover',
+                        top:"30px",
+                        left:"20px",
+                    }}/>
+                </div>
+                <div className="col-6">
+                    <p className="gradient-text">Ondas e Cachos Perfeitos com Elegância</p>
+                    <h3>{servico?.nome}</h3>
+                    <p className="opacity-75">{servico?.descricao}</p>
+                    <p className="gradient-text">Valor: R${servico?.valor}</p>
+                    <div className="mt-5"><ButtonGold value="AGENDE AGORA" type={"button"} onClick={RedirectAgenda}></ButtonGold></div>
+                </div>
+                </div>
+                <svg width="1898" height="273" viewBox="0 0 1898 273" fill="none" xmlns="http://www.w3.org/2000/svg" className="position-absolute z-0" style={{top:'580px'}}  >
+                    <path d="M719.089 2.04256C1508.25 558.985 2304.25 -24.0046 1663.66 270.043C1972.93 -96.9376 0.40625 242.837 0.40625 242.837" stroke="#AB8B50" stroke-width="5"/>
+                </svg>
+
+            </main>
+            <Footer></Footer>
+        </>
+    )
+}
+export default DetalheServico;

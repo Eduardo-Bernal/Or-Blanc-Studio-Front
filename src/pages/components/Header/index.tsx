@@ -1,6 +1,44 @@
 import ButtonGold from "@/pages/components/ButtonGold";
+import {useRouter} from "next/router";
+import {estaLogado, sair} from "@/pages/api/authService";
+import {useEffect, useState} from "react";
+import secureLocalStorage from "react-secure-storage";
+import Link from "next/link";
 
 export default function Header() {
+
+    const router = useRouter();
+    const [logado, setLogado] = useState<boolean>(false);
+
+    const [role, setRole] = useState<string | null>(null);
+    const [idCliente, setIdCliente] = useState<string | null>(null);
+    const [idProfissional, setIdProfissional] = useState<string | null>(null);
+
+
+
+    function handleLogin() {
+        router.push("/login");
+    }
+
+    function handleLogout() {
+        sair();
+    }
+
+    async function verificarLogin() {
+        setLogado(await estaLogado());
+    }
+
+    function setLogin() {
+        setRole(secureLocalStorage.getItem("role") as string);
+        setIdCliente(secureLocalStorage.getItem("id_cliente") as string);
+        setIdProfissional(secureLocalStorage.getItem("id_profissional") as string);
+    }
+
+    useEffect(() => {
+        verificarLogin();
+        setLogin();
+    }, []);
+
     return (
         <header
             className="col-12 d-flex flex-row justify-content-between px-4"
@@ -17,49 +55,72 @@ export default function Header() {
                         <img
                             src="/imgs/logoLogin.png"
                             alt="Logo"
-                            style={{ height: "100px" }}
+                            style={{height: "100px"}}
                         />
                     </div>
 
 
                     <div className="col-6">
                         <nav className="d-flex justify-content-center gap-4">
-                            <a href="#" className="text-decoration-none text-white">
+                            <Link href="/home" className="link">
                                 Home
-                            </a>
-                            <a href="#" className="text-decoration-none text-white">
+                            </Link>
+                            <Link href="/servico/visualizar" className="link">
                                 Serviços
-                            </a>
-                            <a href="#" className="text-decoration-none text-white">
-                                Agenda
-                            </a>
-                            <a href="#" className="text-decoration-none text-white">
+                            </Link>
+                            {
+                                 role === "Cliente" && (
+                                    <Link href={`/agenda-usuario/${idCliente}`} className="link">
+                                        Agenda
+                                    </Link>
+                                 )
+                            }
+                            {
+                                role === "Profissional" && (
+                                    <Link href={`/agenda-profissional/${idProfissional}`} className="link">
+                                        Agenda
+                                    </Link>
+                                )
+                            }
+                            <a href="/home#Equipe" className="link">
                                 Equipe
                             </a>
-                            <a href="#" className="text-decoration-none text-white">
-                                Avaliações
-                            </a>
+                            <Link href="/conta" className="link">
+                                Conta
+                            </Link>
                         </nav>
                     </div>
 
 
-                    <div className="col-3 d-flex justify-content-end gap-3">
+                    {logado ? <div className="col-3 d-flex justify-content-end gap-3 p-4">
+                        <button
+                            className="btn btn-outline-light"
+                            style={{minWidth: "120px"}}
+                            onClick={() => handleLogout()}
+                        >
+                            Sair
+                        </button>
+                    </div> : <div className="col-3 d-flex justify-content-end gap-3">
                         <div className="p-4">
                             <ButtonGold
-                                type="submit"
+                                type="button"
                                 value="Login"
+                                onClick={() => {
+                                    handleLogin()
+                                }}
                             />
                         </div>
 
                         <div className="p-4">
-                        <button
-                            className="btn btn-outline-light"
-                            style={{ minWidth: "120px" }}
-                        >
-                            Registre-se
-                        </button>
-                    </div>
-                    </div>
+                            <button
+                                className="btn btn-outline-light"
+                                style={{minWidth: "120px"}}
+                            >
+                                Registre-se
+                            </button>
+                        </div>
+                    </div>}
+
 
                 </div>
             </div>

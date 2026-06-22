@@ -8,7 +8,8 @@ export async function cadastro(nome: string, telefone: string,email: string, sen
             email,
             senha
         });
+        return response.data
     } catch (e: any) {
-        throw new Error(e.message);
+        console.log(e.response?.data);
     }
 }
