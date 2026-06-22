@@ -7,6 +7,7 @@ import {useParams} from "next/navigation";
 import {estaLogado} from "@/pages/api/authService";
 import secureLocalStorage from "react-secure-storage";
 import {router} from "next/client";
+import Link from "next/link";
 
 
 interface IAgendamento {
@@ -67,14 +68,12 @@ export default function Agendar() {
     }, []);
 
     if(!logado || role != "Profissional") {
-        setTimeout(() => {
-            router.push("/login")
-        }, 1500)
         return (
             <>
                 <main className="text-center d-flex justify-content-center align-items-center vh-100">
                     <div>
                         <h1 className="text-white text-center">Faça login para acessar essa tela</h1>
+                        <Link href="/home" className="text-white">Retornar para a página principal</Link>
                     </div>
                 </main>
             </>
