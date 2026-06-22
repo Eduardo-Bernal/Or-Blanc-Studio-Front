@@ -116,10 +116,12 @@ export default function Login() {
 
                             <div className="text-center mt-5">
                                 <a
-                                    href="/cadastro"
+                                    onClick={() => {
+                                        router.push("/cadastro");
+                                    }}
                                     className="text-light"
                                 >
-                                    Ainda não tem uma conta? Crie agora
+                                    Cadastra-se!
                                 </a>
                             </div>
                         </div>
