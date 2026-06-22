@@ -2,6 +2,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import type { AppProps } from "next/app";
 import { Cinzel, Tenor_Sans } from "next/font/google";
+import {ToastContainer} from "react-toastify";
 
 const cinzel = Cinzel({
     weight: ["400", "500", "600", "700"],
@@ -18,6 +19,8 @@ const tenor = Tenor_Sans({
 export default function App({ Component, pageProps }: AppProps) {
     return (
         <main className={`${cinzel.variable} ${tenor.variable}`}>
+            <ToastContainer />
+
             <Component {...pageProps} />
         </main>
     );
