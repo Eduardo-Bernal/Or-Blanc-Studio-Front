@@ -14,11 +14,12 @@ interface Profissional {
 }
 
 const imagensPorProfissional: Record<string, string> = {
-    "Eduardo Bernal": "/imgs/Cabelo.png",
-    "Guilherme Araujo": "/imgs/depilation.png",
-    "Lucas Rivolta": "/imgs/Cabelo.png",
-    "Raphael Aljona": "/imgs/Unha.png",
-    "Arthur Sales": "/imgs/Maquiagem.png",
+    "Eduardo Bernal": "/imgs/bernal.jpeg",
+    "Guilherme Araujo": "/imgs/manoreps.jpeg",
+    "Lucas Rivolta": "/imgs/luqueta.jpeg",
+    "Raphael Aljona": "/imgs/piheight.jpeg",
+    "Arthur Sales": "/imgs/artu.jpeg",
+    "Vitor Hugo": "/imgs/vitu.jpeg",
 };
 
 function getImagemProfissional(nome: string): string {
@@ -28,6 +29,23 @@ function getImagemProfissional(nome: string): string {
 const VISIVEIS = 3;
 
 const Home = () => {
+
+    function formatarCelular(numero: string) {
+
+        const limpo = numero.replace(/\D/g, '');
+
+        if (limpo.length === 11) {
+            return limpo.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
+
+
+        if (limpo.length === 10) {
+
+            return limpo.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        }
+        return numero;
+    }
+
     const [profissionais, setProfissionais] = useState<Profissional[]>([]);
     const [indiceInicio, setIndiceInicio] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
@@ -160,7 +178,7 @@ const Home = () => {
                                             className="d-flex flex-column-reverse card text-white"
                                             style={{
                                                 flex: "1",
-                                                minHeight: "420px",
+                                                minHeight: "500px",
                                                 backgroundImage: `url("${getImagemProfissional(prof.nome)}")`,
                                                 backgroundSize: "cover",
                                                 backgroundPosition: "center",
@@ -173,7 +191,7 @@ const Home = () => {
                                                     <p className="m-0">{prof.especialidade}</p>
                                                 </div>
                                                 {prof.telefone && (
-                                                    <small>{prof.telefone}</small>
+                                                    <small>{formatarCelular(prof.telefone)}</small>
                                                 )}
                                                 <div className="d-flex gap-2">
                                                     <i className="bi bi-instagram"></i>
@@ -247,7 +265,22 @@ const Home = () => {
 
                 <section id="avaliacoes" className="text-white vh-100 col-12 container d-flex flex-column justify-content-around ">
                     <h2 className="text-center titulo">Avaliações</h2>
-                    <iframe className="col-12 h-50" src="https://br.pinterest.com/pin/1829656094470722/"></iframe>
+                    <div className="d-flex flex-column align-items-center justify-content-center" style={{ width: '100%', height: '100vh' }}>
+                        <video
+                            src="/imgs/videosite.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            controls={false}
+                            style={{
+                                width: '100%',
+                                height: '80%',
+                                objectFit: 'cover',
+                                pointerEvents: 'none',
+                            }}
+                        />
+                    </div>
                     <div className="d-flex">
                         <div className="card col-4 bg-transparent border border-0 text-white p-2">
                             <div className="border border-0 border-bottom d-flex flex-row align-items-center justify-content-between">
