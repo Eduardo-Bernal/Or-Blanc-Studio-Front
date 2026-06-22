@@ -62,30 +62,30 @@ export default function Header() {
 
                     <div className="col-6">
                         <nav className="d-flex justify-content-center gap-4">
-                            <Link href="/home" className="text-decoration-none text-white">
+                            <Link href="/home" className="link">
                                 Home
                             </Link>
-                            <Link href="/servico/visualizar" className="text-decoration-none text-white">
+                            <Link href="/servico/visualizar" className="link">
                                 Serviços
                             </Link>
                             {
                                  role === "Cliente" && (
-                                    <Link href={`/agenda-usuario/${idCliente}`} className="text-decoration-none text-white">
+                                    <Link href={`/agenda-usuario/${idCliente}`} className="link">
                                         Agenda
                                     </Link>
                                  )
                             }
                             {
                                 role === "Profissional" && (
-                                    <Link href={`/agenda-profissional/${idProfissional}`} className="text-decoration-none text-white">
+                                    <Link href={`/agenda-profissional/${idProfissional}`} className="link">
                                         Agenda
                                     </Link>
                                 )
                             }
-                            <Link href="/" className="text-decoration-none text-white">
+                            <a href="/home#Equipe" className="link">
                                 Equipe
-                            </Link>
-                            <Link href="/conta" className="text-decoration-none text-white">
+                            </a>
+                            <Link href="/conta" className="link">
                                 Conta
                             </Link>
                         </nav>

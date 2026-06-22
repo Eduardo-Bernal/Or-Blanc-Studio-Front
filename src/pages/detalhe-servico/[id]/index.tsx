@@ -22,7 +22,7 @@ const DetalheServico = () => {
     const params = useParams();
     const id = params?.id;
     const RedirectAgenda = () => {
-        router.push("/servico/agendar");
+        router.push("/agendar-servico");
     }
 
     async function obterServicoId(){
@@ -51,13 +51,20 @@ const DetalheServico = () => {
                                  height:'420px',
                                  borderRadius:'10px',
                     }}></div>
-                    <img className="position-relative z-2 " src={servico?.imagemUrl ? servico.imagemUrl : "/imgs/loirinhaCovarde.png"} alt="Mulher modelo"/>
+                    <img className="position-relative z-2" src={servico?.imagemUrl ? servico.imagemUrl : "/imgs/loirinhaCovarde.png"} alt="Mulher modelo"
+                    style={{width:'420px',
+                        height:'420px',
+                        borderRadius:'10px',
+                        objectFit:'cover',
+                        top:"30px",
+                        left:"20px",
+                    }}/>
                 </div>
                 <div className="col-6">
                     <p className="gradient-text">Ondas e Cachos Perfeitos com Elegância</p>
                     <h3>{servico?.nome}</h3>
                     <p className="opacity-75">{servico?.descricao}</p>
-                    <p className="gradient-text">Valor: R$ {servico?.valor}</p>
+                    <p className="gradient-text">Valor: R${servico?.valor}</p>
                     <div className="mt-5"><ButtonGold value="AGENDE AGORA" type={"button"} onClick={RedirectAgenda}></ButtonGold></div>
                 </div>
                 </div>

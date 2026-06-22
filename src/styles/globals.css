@@ -115,3 +115,12 @@ a {
   color: transparent;
 }
 
+.link{
+  text-decoration: none;
+  color: white;
+}
+
+.link:hover{
+  border-bottom: 2px solid white;
+}
+

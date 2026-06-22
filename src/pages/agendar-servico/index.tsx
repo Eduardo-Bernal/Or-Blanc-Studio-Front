@@ -7,6 +7,8 @@ import { listarServicos } from "@/pages/api/servicoService";
 import { listarProfissionais } from "@/pages/api/profissionalService";
 import { agendarServico } from "@/pages/api/agendamentoService";
 import {useAuth} from "@/pages/api/AuthContext";
+import {router} from "next/client";
+import {useRouter} from "next/router";
 
 type Servico = {
     descricao: string;
@@ -35,6 +37,9 @@ const AgendarServico = () => {
     const [dataHoraInicio, setDataHoraInicio] = useState<string>("");
     const [dataHoraFim, setDataHoraFim] = useState<string>("");
     const [observacao, setObservacao] = useState<string>("");
+    const [profissionaisFiltrados, setProfissionaisFiltrados] = useState<Profissional[]>([]);
+
+    const router = useRouter();
 
     async function getProfissinais() {
         try {
@@ -66,16 +71,36 @@ const AgendarServico = () => {
                 observacao,
                 status: "ativo",
             });
-            console.log(dados);
+            setTimeout(() =>
+            {router.push("/home")}
+                , 500)
         } catch (e: any) {
             console.log(e);
         }
     }
 
+
     useEffect(() => {
         getServicos();
         getProfissinais();
-    }, []);
+
+        if (!idServico || !profissionais || !servicos) {
+            setProfissionaisFiltrados(profissionais || []);
+            return;
+        }
+
+        const servicoSelecionado = servicos.find(
+            s => s.id_servico === idServico
+        );
+
+        const filtrados = profissionais.filter((profissional) =>
+            profissional.especialidade
+                ?.toLowerCase()
+                .includes(servicoSelecionado?.nome.toLowerCase() || "")
+        );
+
+        setProfissionaisFiltrados(filtrados);
+    }, [idServico]);
 
     return (
         <>
@@ -98,7 +123,7 @@ const AgendarServico = () => {
                                 <label>Selecione os profissionais</label>
                                 <select className="input" value={idProfissional} onChange={(e) => setIdProfissional(e.target.value)}>
                                     <option value="">Selecione os Profissionais de preferencia...</option>
-                                    {profissionais?.map((profissional) => (
+                                    {profissionaisFiltrados?.map((profissional) => (
                                         <option value={profissional.id_profissional} key={profissional.id_profissional}>{profissional.nome}</option>
                                     ))}
                                 </select>

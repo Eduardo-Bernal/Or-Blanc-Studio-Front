@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {erro, notificacao} from "@/utils/toast";
 import {cadastro} from "@/pages/api/cadastroService";
+import {router} from "next/client";
 
 
 export default function Cadastro() {
@@ -20,7 +21,7 @@ export default function Cadastro() {
 
 
         if (!form.email || !form.nome || !form.telefone || !form.senha) {
-            erro("Preenche todos os campos!");
+            erro("Preencha todos os campos!");
             return;
         }
 
@@ -28,6 +29,7 @@ export default function Cadastro() {
         try {
             await cadastro(form.nome, form.telefone, form.email, form.senha);
             notificacao("Autenticado com sucesso!");
+            setTimeout(() => router.push("/home"), 500);
         } catch (e: any) {
             erro("Erro ao criar a conta");
         } finally {

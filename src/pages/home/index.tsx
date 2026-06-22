@@ -107,7 +107,7 @@ const Home = () => {
                 </section>
 
                 {/*Profissionais*/}
-                <section className="text-white vh-100 col-12 container d-flex flex-column justify-content-around">
+                <section className="text-white vh-100 col-12 container d-flex flex-column justify-content-around" id="Equipe">
                     <h2 className="text-center "> Especialistas em Beleza <br/> <strong className="titulo">Nossa Equipe</strong></h2>
                     <div className="h-75 col-12 d-flex flex-column gap-1">
                         <div className="h-100 d-flex">

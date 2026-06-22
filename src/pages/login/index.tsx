@@ -115,7 +115,7 @@ export default function Login() {
 
                         <div className="text-center mt-5">
                             <a
-                                href="#"
+                                href="/cadastro"
                                 className="text-light"
                             >
                                 Ainda não tem uma conta? Crie agora

@@ -51,8 +51,7 @@ export async function agendarServico(agendamento:IAgendamento){
             observacao: agendamento.observacao,
         });
 
-        console.log(agendamento.status);
     }catch (e:any){
-        throw new Error(e.message);
+        console.log(e.response?.data);
     }
 }
