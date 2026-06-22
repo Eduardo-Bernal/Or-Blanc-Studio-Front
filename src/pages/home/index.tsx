@@ -28,20 +28,20 @@ const Home = () => {
                 {/* SERVIÇOS */}
                 <section className="vh-100 d-flex align-items-center flex-column justify-content-around container">
                     <h2 className="titulo text-center">Nossos Serviços</h2>
-                    <div className="col-12 h-75 d-flex justify-content-between z-3">
+                    <div className="col-12 h-75 d-flex justify-content-between z-3 gap-2">
                         <div className="d-flex col-8">
-                            <img className="card bg-transparent object-fit-cover p-2" style={{height: "100%"}}
+                            <img className="rounded-2 bg-transparent object-fit-cover m-2" style={{width: "33%"}}
                                  src="/imgs/Cabelo.png" alt=""/>
                             <div className="col-4 h-100 position-relative d-flex justify-content-between flex-column">
-                                <img className="card bg-transparent object-fit-cover p-2" style={{height: "50%"}}
+                                <img className="rounded-2 bg-transparent object-fit-cover m-2 h-50" style={{height: "50%"}}
                                      src="/imgs/Unha.png" alt=""/>
-                                <img className="card bg-transparent object-fit-cover p-2" style={{height: "50%"}}
+                                <img className="rounded-2 bg-transparent object-fit-cover m-2 h-50" style={{height: "50%"}}
                                      src="/imgs/Pé.png" alt=""/>
                             </div>
                             <div className="col-4 h-100 position-relative d-flex justify-content-between flex-column">
-                                <img className="card bg-transparent object-fit-cover p-2" style={{height: "50%"}}
+                                <img className="rounded-2 bg-transparent object-fit-cover m-2 h-50" style={{height: "50%"}}
                                      src="/imgs/depilation.png" alt=""/>
-                                <img className="card bg-transparent object-fit-cover p-2" style={{height: "50%"}}
+                                <img className="rounded-2 bg-transparent object-fit-cover m-2 h-50" style={{height: "50%"}}
                                      src="/imgs/Maquiagem.png" alt=""/>
 
                             </div>
@@ -107,7 +107,7 @@ const Home = () => {
                 </section>
 
                 {/*Profissionais*/}
-                <section className="text-white vh-100 col-12 container d-flex flex-column justify-content-around">
+                <section className="text-white vh-100 col-12 container d-flex flex-column justify-content-around" id="Equipe">
                     <h2 className="text-center "> Especialistas em Beleza <br/> <strong className="titulo">Nossa Equipe</strong></h2>
                     <div className="h-75 col-12 d-flex flex-column gap-1">
                         <div className="h-100 d-flex">
