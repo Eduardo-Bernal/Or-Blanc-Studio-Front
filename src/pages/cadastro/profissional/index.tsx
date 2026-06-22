@@ -9,6 +9,8 @@ import {estaLogado} from "@/pages/api/authService";
 import secureLocalStorage from "react-secure-storage";
 import {router} from "next/client";
 import Link from "next/link";
+import {useRouter} from "next/router";
+import {editarProfissional, listarProfissionalPorId} from "@/pages/api/profissionalService";
 
 export default function Profissional() {
 
@@ -31,14 +33,32 @@ export default function Profissional() {
         {id: "tratamento", nome: "Tratamentos"}
     ];
 
+    const router = useRouter();
+    const id = router.query.id;
+
+    const telaEditar = !!id;
+
+    async function carregarInformacoes() {
+        if (!id) return;
+
+        try {
+            const profissional = await listarProfissionalPorId(id as string);
+
+            setNome(profissional.nome);
+            setEmail(profissional.email);
+            setTelefone(profissional.telefone);
+            setEspecialidade(profissional.especialidade);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     async function salvarProfissional(
         e: React.FormEvent<HTMLFormElement>
     ) {
         e.preventDefault();
-
-
-
         try {
 
             const dados = {
@@ -50,6 +70,23 @@ export default function Profissional() {
                 imagem,
                 ativo
             };
+
+            if (telaEditar) {
+                await editarProfissional(id as string, dados
+                );
+                notificacao(
+                    "Profissional atualizado com sucesso!"
+                );
+
+            } else {
+
+                await cadastrarProfissional(dados);
+
+                notificacao(
+                    "Profissional cadastrado com sucesso!"
+                );
+            }
+
             await cadastrarProfissional(dados);
             notificacao("Profissional cadastrado com sucesso!");
 
@@ -57,6 +94,8 @@ export default function Profissional() {
             erro("Erro ao cadastrar profissional" + error.response.data)
         }
     }
+
+
 
     async function verificarLogin(){
         setLogado(await estaLogado())
@@ -72,8 +111,14 @@ export default function Profissional() {
     }
 
     useEffect(() => {
-        verificarLogin()
-    })
+
+        verificarLogin();
+
+        if (router.isReady) {
+            carregarInformacoes();
+        }
+
+    }, [router.isReady, id]);
 
     if(!logado || role != "Profissional"){
         return(
@@ -95,8 +140,11 @@ export default function Profissional() {
             <Header/>
 
             <section className="container">
-                <h1 className="titulo ">
-                    CADASTRAR PROFISSIONAL
+                <h1 className="titulo">
+                    {
+                        telaEditar ? "EDITAR PROFISSIONAL"
+                            : "CADASTRAR PROFISSIONAL"
+                    }
                 </h1>
 
                 <form

@@ -9,3 +9,18 @@ export async function listarProfissionais(){
         throw new Error(err.message);
     }
 }
+
+export async function listarProfissionalPorId(id: string) {
+    const response = await api.get(`/Profissional/${id}`);
+    return response.data;
+}
+
+export async function editarProfissional(
+    id: string,
+    dados: any
+) {
+    return await api.put(
+        `/Profissional/${id}`,
+        dados
+    );
+}
