@@ -3,6 +3,8 @@ import ButtonGold from "@/pages/components/ButtonGold";
 import Footer from "@/pages/components/Footer";
 import { useEffect, useState } from "react";
 import { listarProfissionais } from "@/pages/api/profissionalService";
+import Link from "next/link";
+import Profissional from "@/pages/cadastro/profissional";
 
 interface Profissional {
     id_profissional: string;
@@ -193,10 +195,19 @@ const Home = () => {
                                                 {prof.telefone && (
                                                     <small>{formatarCelular(prof.telefone)}</small>
                                                 )}
-                                                <div className="d-flex gap-2">
-                                                    <i className="bi bi-instagram"></i>
-                                                    <i className="bi bi-facebook"></i>
+                                                <div className="d-flex justify-content-between">
+                                                    <div className="d-flex gap-2">
+                                                        <i className="bi bi-instagram"></i>
+                                                        <i className="bi bi-facebook"></i>
+                                                    </div>
+                                                    <div>
+                                                        <Link
+                                                            href={`/cadastro/profissional?id=${prof.id_profissional}`}>
+                                                            <i className="bi bi-pencil text-white"></i>
+                                                        </Link>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </article>
                                     ))}

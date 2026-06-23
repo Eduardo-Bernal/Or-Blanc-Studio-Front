@@ -43,11 +43,12 @@ export default function Profissional() {
 
         try {
             const profissional = await listarProfissionalPorId(id as string);
-
             setNome(profissional.nome);
             setEmail(profissional.email);
             setTelefone(profissional.telefone);
             setEspecialidade(profissional.especialidade);
+            setSenha(profissional.senha);
+            setImagem(profissional.imagem);
 
         } catch (error) {
             console.log(error);
@@ -260,7 +261,11 @@ export default function Profissional() {
                         className={styles.botao}
                         type="submit"
                     >
-                        Cadastrar
+                        {
+                            telaEditar
+                                ? "Salvar Alterações"
+                                : "Cadastrar"
+                        }
                     </button>
 
                 </form>
