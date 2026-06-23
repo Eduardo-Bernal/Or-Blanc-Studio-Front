@@ -5,9 +5,12 @@ import Footer from "@/pages/components/Footer";
 import {ReactNode, useEffect, useState} from "react";
 import styles from "../../components/Table/table.module.css";
 import Tabela from "@/pages/components/Table";
-import {cancelarAgendamento, getAgendamentoCliente, getAgendamentos} from "@/pages/api/agendamentoService";
+import {getAgendamentoCliente, getAgendamentos} from "@/pages/api/agendamentoService";
 import {useParams} from "next/navigation";
-import {erro, notificacao} from "@/utils/toast";
+import {estaLogado} from "@/pages/api/authService";
+import secureLocalStorage from "react-secure-storage";
+import {router} from "next/client";
+import Link from "next/link";
 
 interface IAgendamento {
     id_agendamento: number;
@@ -29,9 +32,12 @@ interface IAgendamento {
 
 export default function AgendaUsuario(): ReactNode {
     const [agendamentos, setAgendamentos] = useState<IAgendamento[]>([]);
+    const [logado, setLogado] = useState(false);
+    const [role, setRole] = useState<string | null>(null);
 
     const params = useParams();
     const id = params?.id;
+
 
 
     async function carregarAgendamentos() {
@@ -43,18 +49,14 @@ export default function AgendaUsuario(): ReactNode {
         }
     }
 
-    async function deletarAgendamento(id: number) {
-        try {
-            await cancelarAgendamento(id);
-
-            notificacao("Agendamento cancelado com sucesso!")
-        } catch (e: any) {
-            erro(e.message)
-        }
+    async function verificarLogin(){
+        setLogado(await estaLogado())
+        setRole(secureLocalStorage.getItem("role") as string);
     }
 
     useEffect(() => {
         carregarAgendamentos();
+        verificarLogin();
     }, [id]);
 
     const dadosTabela = agendamentos.map((agendamento) => ({
@@ -66,13 +68,11 @@ export default function AgendaUsuario(): ReactNode {
             hour: "2-digit",
             minute: "2-digit",
         }),
-
     }));
+
     const dadosAgendado = agendamentos
-        .filter(agendamento => agendamento.status === "Agendado")
-        .sort((a, b) => new Date(a.data_hora_inicio).getTime() - new Date(b.data_hora_inicio).getTime())
+        .filter(agendamento => agendamento.status === "Agendado").sort((a, b) => new Date(a.data_hora_inicio).getTime() - new Date(b.data_hora_inicio).getTime())
         .map(agendamento => ({
-            id: agendamento.id_agendamento,
             profissional: agendamento.nome_profissional,
             cliente: agendamento.nome_cliente,
             servico: agendamento.nome_servico,
@@ -83,27 +83,37 @@ export default function AgendaUsuario(): ReactNode {
             }),
         }));
 
+    if(!logado || role != "Cliente") {
+        return (
+            <>
+                <main className="text-center d-flex justify-content-center align-items-center vh-100">
+                    <div>
+                        <h1 className="text-white text-center">Faça login para acessar essa tela</h1>
+                        <Link href="/home" className="text-white">Retornar para a página principal</Link>
+                    </div>
+                </main>
+            </>
+        )
+    }
+
     return (
         <>
-            <Header/>
-            <main style={{minHeight: '78.7vh', backgroundColor: 'var(--preto-fundo)'}}>
-                <Tabela
-                    titulo="Serviços Agendados"
-                    dados={dadosAgendado}
-                    ehAgendado={true}
-                    hasFilter={false}
-                    hasDeleted={true}
-                    onClick={(id:number) => deletarAgendamento(id)}
-                />
-                <Tabela
-                    titulo="Histórico de Serviços"
-                    dados={dadosTabela}
-                    ehAgendado={false}
-                    hasFilter={true}
-                    hasDeleted={false}
-                />
+            <Header />
+            <main style={{minHeight:'78.7vh', backgroundColor:'var(--preto-fundo)'}}>
+                    <Tabela
+                        titulo="Serviços Agendados"
+                        dados={dadosAgendado}
+                        ehAgendado={true}
+                        hasFilter={false}
+                    />
+                    <Tabela
+                        titulo="Histórico de Serviços"
+                        dados={dadosTabela}
+                        ehAgendado={false}
+                        hasFilter={true}
+                    />
             </main>
-            <Footer/>
+            <Footer />
         </>
-    );
+    )
 }

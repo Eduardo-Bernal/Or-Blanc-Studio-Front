@@ -9,3 +9,9 @@ export async function listarProfissionais(){
         throw new Error(err.message);
     }
 }
+
+export async function listarProfissionalPorId(id: string) {
+    const response = await api.get(`/Profissional/${id}`);
+    return response.data;
+}
+

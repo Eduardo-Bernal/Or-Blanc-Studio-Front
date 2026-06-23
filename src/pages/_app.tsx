@@ -5,6 +5,7 @@ import {ToastContainer} from "react-toastify";
 
 import type { AppProps } from "next/app";
 import {AuthProvider} from "@/pages/api/AuthContext";
+import {Imprima} from "next/dist/compiled/@next/font/dist/google";
 
 
 export default function App({ Component, pageProps }: AppProps) {

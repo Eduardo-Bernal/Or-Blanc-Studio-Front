@@ -2,10 +2,41 @@ import Header from "@/pages/components/Header";
 import Footer from "@/pages/components/Footer";
 import styles from "./criar-servico.module.css";
 import ButtonGold from "@/pages/components/ButtonGold";
+import {useEffect, useState} from "react";
+import {estaLogado} from "@/pages/api/authService";
+import secureLocalStorage from "react-secure-storage";
+import {router} from "next/client";
+import Link from "next/link";
 
 
 
 export default function Criar() {
+
+    const [logado, setLogado] = useState(false);
+    const [role, setRole] = useState<string | null>(null);
+
+    async function verificarLogin(){
+        setLogado(await estaLogado())
+        setRole(secureLocalStorage.getItem("role") as string);
+    }
+
+    useEffect(() => {
+        verificarLogin();
+    }, []);
+
+    if(!logado || role != "Profissional") {
+        return (
+            <>
+                <main className="text-center d-flex justify-content-center align-items-center vh-100">
+                    <div>
+                        <h1 className="text-white text-center">Faça login para acessar essa tela</h1>
+                        <Link href="/home" className="text-white">Retornar para a página principal</Link>
+                    </div>
+                </main>
+            </>
+        )
+    }
+
     return (
         <main className={styles.pagina_conteudo}>
             <Header />

@@ -1,10 +1,16 @@
 import Header from "@/pages/components/Header";
 import Footer from "@/pages/components/Footer";
 import styles from "./profissional.module.css";
-import {useState} from "react";
-import {cadastrarProfissional} from "@/pages/api/cadastroProfissionalService";
+import {useEffect, useState} from "react";
+import {cadastrarProfissional, editarProfissional} from "@/pages/api/cadastroProfissionalService";
 import {erro, notificacao} from "@/utils/toast";
 import {ToastContainer} from "react-toastify";
+import {estaLogado} from "@/pages/api/authService";
+import secureLocalStorage from "react-secure-storage";
+import {router} from "next/client";
+import Link from "next/link";
+import {useRouter} from "next/router";
+import { listarProfissionalPorId} from "@/pages/api/profissionalService";
 
 export default function Profissional() {
 
@@ -15,6 +21,8 @@ export default function Profissional() {
     const [senha, setSenha] = useState("");
     const [imagem, setImagem] = useState<File | null>(null);
     const [ativo] = useState(true);
+    const [logado, setLogado] = useState(false);
+    const [role, setRole] = useState<string | null>(null);
 
 
     const listaEspecialidades = [
@@ -25,12 +33,33 @@ export default function Profissional() {
         {id: "tratamento", nome: "Tratamentos"}
     ];
 
+    const router = useRouter();
+    const id = router.query.id;
+
+    const telaEditar = !!id;
+
+    async function carregarInformacoes() {
+        if (!id) return;
+
+        try {
+            const profissional = await listarProfissionalPorId(id as string);
+            setNome(profissional.nome);
+            setEmail(profissional.email);
+            setTelefone(profissional.telefone);
+            setEspecialidade(profissional.especialidade);
+            setSenha(profissional.senha);
+            setImagem(profissional.imagem);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     async function salvarProfissional(
         e: React.FormEvent<HTMLFormElement>
     ) {
         e.preventDefault();
-
         try {
 
             const dados = {
@@ -42,15 +71,33 @@ export default function Profissional() {
                 imagem,
                 ativo
             };
-            console.log(`dados: ${dados.imagem}`);
-            await cadastrarProfissional(dados);
 
-            notificacao("Profissional cadastrado com sucesso!");
+            if (telaEditar) {
+                await editarProfissional(id as string, dados
+                );
+                notificacao(
+                    "Profissional atualizado com sucesso!"
+                );
 
-        } catch (error) {
-            console.log(error);
-            erro("Erro ao cadastrar profissional")
+            } else {
+
+                await cadastrarProfissional(dados);
+
+                notificacao(
+                    "Profissional cadastrado com sucesso!"
+                );
+            }
+
+        } catch (error: any) {
+            erro("Erro ao cadastrar profissional" + error.response.data)
         }
+    }
+
+
+
+    async function verificarLogin(){
+        setLogado(await estaLogado())
+        setRole(secureLocalStorage.getItem("role") as string);
     }
 
     function gerenciarImagem(
@@ -61,6 +108,28 @@ export default function Profissional() {
         }
     }
 
+    useEffect(() => {
+
+        verificarLogin();
+
+        if (router.isReady) {
+            carregarInformacoes();
+        }
+
+    }, [router.isReady, id]);
+
+    if(!logado || role != "Profissional"){
+        return(
+            <>
+                <main className="text-center d-flex justify-content-center align-items-center vh-100">
+                    <div>
+                        <h1 className="text-white text-center">Faça login para acessar essa tela</h1>
+                        <Link href="/home" className="text-white">Retornar para a página principal</Link>
+                    </div>
+                </main>
+            </>
+        )}
+
     return (
         <>
             <ToastContainer></ToastContainer>
@@ -70,7 +139,10 @@ export default function Profissional() {
 
             <section className="container">
                 <h1 className="titulo">
-                    CADASTRAR PROFISSIONAL
+                    {
+                        telaEditar ? "EDITAR PROFISSIONAL"
+                            : "CADASTRAR PROFISSIONAL"
+                    }
                 </h1>
 
                 <form
@@ -186,7 +258,11 @@ export default function Profissional() {
                         className={styles.botao}
                         type="submit"
                     >
-                        Cadastrar
+                        {
+                            telaEditar
+                                ? "Salvar Alterações"
+                                : "Cadastrar"
+                        }
                     </button>
 
                 </form>
