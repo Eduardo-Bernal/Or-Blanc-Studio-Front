@@ -15,9 +15,11 @@ interface TabelaProps {
     dados: Servico[];
     ehAgendado?: boolean;
     hasFilter?: boolean;
+    hasDeleted?: boolean;
+    onClick?: () => void;
 }
 
-export default function Tabela({ titulo, dados, hasFilter }: TabelaProps) {
+export default function Tabela({ titulo, dados, hasFilter, hasDeleted, onClick }: TabelaProps) {
     const [filtroAberto, setFiltroAberto] = useState(false);
     const [filtroPessoa, setFiltroPessoa] = useState("");
     const [filtroServico, setFiltroServico] = useState("");
@@ -325,13 +327,14 @@ export default function Tabela({ titulo, dados, hasFilter }: TabelaProps) {
                             <th>Serviço</th>
                             <th>Data</th>
                             <th>Hora</th>
+                            {hasDeleted ? <th className="">Ações</th> : null}
                         </tr>
                         </thead>
 
                         <tbody>
                         {dadosFiltrados.length > 0 ? (
                             dadosFiltrados.map((item, index) => (
-                                <tr key={index}>
+                                <tr key={index} >
                                     <td>
                                         {role === "Profissional"
                                             ? item.cliente
@@ -341,6 +344,7 @@ export default function Tabela({ titulo, dados, hasFilter }: TabelaProps) {
                                     <td>{item.servico}</td>
                                     <td>{item.data}</td>
                                     <td>{item.hora}</td>
+                                    {hasDeleted == true ? <td className=""><i onClick={onClick} className="ms-1 btn btn-sm btn-outline-danger bi bi-trash-fill"></i></td> : null }
                                 </tr>
                             ))
                         ) : (

@@ -37,11 +37,11 @@ export default function CardServico({ id }: Props) {
     }
 
     return (
-        <div className={`${styles.card} glass-card`}>
+        <div className={`${styles.card} glass-card d-flex justify-content-between`}>
             <img
                 src={servico.imagemUrl || "/imgs/cabelo_mulher.png"}
                 alt="Serviço de cabelo"
-                className={styles.imagem}
+                className={`${styles.imagem} h-50 rounded-2`}
             />
 
             <h1 className={styles.nome_servico}>
@@ -53,7 +53,7 @@ export default function CardServico({ id }: Props) {
             </p>
 
             <div className="w-100 mt-4">
-                <ButtonGold value="Ver mais" onClick={() => router.push(`/detalhe-servico/${id}`)} />
+                <ButtonGold value="Ver detalhes" onClick={() => router.push(`/detalhe-servico/${id}`)} />
             </div>
         </div>
     );

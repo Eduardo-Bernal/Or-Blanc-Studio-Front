@@ -7,6 +7,17 @@ interface IAgendamento {
     data_hora_inicio: string,
     data_hora_fim: string,
     status: string,
+    observacao: string,
+    id_agendamento: string,
+}
+
+interface IAgendamentoCadastro {
+    id_cliente: string,
+    id_profissional: string,
+    id_servico: number,
+    data_hora_inicio: string,
+    data_hora_fim: string,
+    status: string,
     observacao: string
 }
 
@@ -39,7 +50,7 @@ export async function getAgendamentoProfissional(id: string){
     }
 }
 
-export async function agendarServico(agendamento:IAgendamento){
+export async function agendarServico(agendamento:IAgendamentoCadastro){
     try{
         await api.post("Agendamento", {
             "id_cliente": agendamento.id_cliente,
@@ -52,6 +63,15 @@ export async function agendarServico(agendamento:IAgendamento){
         });
 
     }catch (e:any){
-        throw new Error(e.response?.data);
+        console.log(e.response.data)
+        throw new Error(e.response.data);
+    }
+}
+
+export async function cancelarAgendamento(id: number){
+    try{
+        await api.delete(`Agendamento/${id}/cancelar`);
+    }catch(err:any){
+        throw new Error(err.message);
     }
 }
