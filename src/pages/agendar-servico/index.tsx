@@ -10,6 +10,7 @@ import {useAuth} from "@/pages/api/AuthContext";
 import {router} from "next/client";
 import {useRouter} from "next/router";
 import {erro, notificacao} from "@/utils/toast";
+import {ToastContainer} from "react-toastify";
 
 type Servico = {
     descricao: string;
@@ -75,15 +76,18 @@ const AgendarServico = () => {
             console.log(dados)
 
             notificacao("Agendamento realizado com sucesso!");
-            setTimeout(() =>
-            {router.push("/home")}
+            setTimeout(() => {
+                    router.push("/home")
+                }
                 , 1000)
         } catch (e: any) {
+
             if (usuario?.id_cliente == null) {
                 erro("Cliente não está logado.")
-            } else {
-                erro(e.message)
+                return;
             }
+            erro(e.message)
+
         }
     }
 
@@ -112,6 +116,7 @@ const AgendarServico = () => {
 
     return (
         <>
+            <ToastContainer></ToastContainer>
             <Header/>
             <section id={styles.agendar_servico}>
                 <div className={`${styles.container_agendar} layout_guide`}>
