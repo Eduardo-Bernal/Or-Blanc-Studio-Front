@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { listarProfissionais } from "@/pages/api/profissionalService";
 import Link from "next/link";
 import Profissional from "@/pages/cadastro/profissional";
+import {router} from "next/client";
+import {estaLogado} from "@/pages/api/authService";
+import secureLocalStorage from "react-secure-storage";
 
 interface Profissional {
     id_profissional: string;
@@ -31,6 +34,13 @@ function getImagemProfissional(nome: string): string {
 const VISIVEIS = 3;
 
 const Home = () => {
+    const [profissionais, setProfissionais] = useState<Profissional[]>([]);
+    const [indiceInicio, setIndiceInicio] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [erro, setErro] = useState<string | null>(null);
+
+    const [logado, setLogado] = useState(false);
+    const [role, setRole] = useState<string>("");
 
     function formatarCelular(numero: string) {
 
@@ -48,10 +58,10 @@ const Home = () => {
         return numero;
     }
 
-    const [profissionais, setProfissionais] = useState<Profissional[]>([]);
-    const [indiceInicio, setIndiceInicio] = useState<number>(0);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [erro, setErro] = useState<string | null>(null);
+    async function verificarLogin(){
+        setLogado(await estaLogado())
+        setRole(secureLocalStorage.getItem("role") as string);
+    }
 
     useEffect(() => {
         listarProfissionais()
@@ -61,6 +71,8 @@ const Home = () => {
             })
             .catch((err: Error) => setErro(err.message))
             .finally(() => setLoading(false));
+
+        verificarLogin()
     }, []);
 
     const podeProsseguir = indiceInicio + VISIVEIS < profissionais.length;
@@ -235,6 +247,24 @@ const Home = () => {
                                     </div>
 
                                     <div className="d-flex gap-2">
+                                        {role == "Profissional" && (
+                                            <button
+                                                onClick={event => router.push("/cadastro/profissional")}
+                                                disabled={false}
+                                                className="btn"
+                                                style={{
+                                                    background: "linear-gradient(135deg, #fcff9e, #c67700)",
+                                                    border: "none",
+                                                    borderRadius: "50%",
+                                                    width: "40px",
+                                                    height: "40px",
+                                                    color: podeVoltar ? "#000" : "#666",
+                                                    cursor: podeVoltar ? "pointer" : "not-allowed",
+                                                }}
+                                            >
+                                                <i className="bi bi-plus"></i>
+                                            </button>
+                                        )}
                                         <button
                                             onClick={voltar}
                                             disabled={!podeVoltar}

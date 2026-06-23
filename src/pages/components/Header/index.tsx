@@ -85,8 +85,8 @@ export default function Header() {
                             <a href="/home#Equipe" className="link">
                                 Equipe
                             </a>
-                            <Link href="/home#avaliacoes" className="link">
-                                Avaliações
+                            <Link href={`/conta/${idCliente}`} className="link">
+                                Conta
                             </Link>
                         </nav>
                     </div>

@@ -8,6 +8,7 @@ import {estaLogado} from "@/pages/api/authService";
 import secureLocalStorage from "react-secure-storage";
 import {router} from "next/client";
 import Link from "next/link";
+import {ToastContainer} from "react-toastify";
 
 
 interface IAgendamento {
@@ -39,14 +40,20 @@ export default function Agendar() {
 
     async function carregarAgendamentos() {
         try {
-            const response = await getAgendamentoProfissional(String(id));
-            setAgendamentos(response);
+            const response:IAgendamento[] = await getAgendamentoProfissional(String(id));
+
+            const agendamentosFiltrados = response.filter((data) => data.status !== "Cancelado");
+
+            setAgendamentos(agendamentosFiltrados);
         } catch (err) {
             console.error(err);
         }
     }
 
+    console.log(agendamentos);
+
     const dadosTabela = agendamentos.map((agendamento) => ({
+        id_agendamento: agendamento.id_agendamento,
         profissional: agendamento.nome_profissional,
         cliente: agendamento.nome_cliente,
         servico: agendamento.nome_servico,
@@ -82,6 +89,7 @@ export default function Agendar() {
 
     return (
         <>
+            <ToastContainer></ToastContainer>
             <Header />
 
             <main
@@ -92,6 +100,8 @@ export default function Agendar() {
                     titulo="Serviços Agendados"
                     dados={dadosTabela}
                     hasFilter={true}
+                    hasDeleted={true}
+                    onClick={() => carregarAgendamentos()}
                 />
             </main>
 

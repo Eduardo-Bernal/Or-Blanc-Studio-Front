@@ -6,11 +6,13 @@ import {useEffect, useState} from "react";
 import {listarServicos} from "@/pages/api/servicoService";
 import {listarProfissionais} from "@/pages/api/profissionalService";
 import {agendarServico} from "@/pages/api/agendamentoService";
-import {useAuth} from "@/pages/api/AuthContext";
+// import {useAuth} from "@/pages/api/AuthContext";
 import {router} from "next/client";
 import {useRouter} from "next/router";
 import {erro, notificacao} from "@/utils/toast";
 import {ToastContainer} from "react-toastify";
+import {estaLogado} from "@/pages/api/authService";
+import secureLocalStorage from "react-secure-storage";
 
 type Servico = {
     descricao: string;
@@ -30,7 +32,7 @@ type Profissional = {
 }
 
 const AgendarServico = () => {
-    const {usuario} = useAuth();
+    // const {usuario} = useAuth();
 
     const [profissionais, setProfissionais] = useState<Profissional[]>();
     const [servicos, setServicos] = useState<Servico[]>();
@@ -40,6 +42,9 @@ const AgendarServico = () => {
     const [dataHoraFim, setDataHoraFim] = useState<string>("");
     const [observacao, setObservacao] = useState<string>("");
     const [profissionaisFiltrados, setProfissionaisFiltrados] = useState<Profissional[]>([]);
+
+    const [logado, setLogado] = useState(false);
+    const [userId, setUserId] = useState<string>("");
 
     const router = useRouter();
 
@@ -52,6 +57,14 @@ const AgendarServico = () => {
         }
     }
 
+    async function verificarLogin(){
+        setLogado(await estaLogado())
+        setUserId(secureLocalStorage.getItem("id_cliente") as string);
+
+    }
+
+    console.log(userId)
+
     async function getServicos() {
         try {
             const dados = await listarServicos();
@@ -61,11 +74,13 @@ const AgendarServico = () => {
         }
     }
 
+
     async function cadastrarAgendamento(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         try {
-            const dados = await agendarServico({
-                id_cliente: usuario?.id_cliente ?? "",
+
+            await agendarServico({
+                id_cliente: userId ?? "",
                 id_profissional: idProfissional,
                 id_servico: idServico,
                 data_hora_inicio: dataHoraInicio,
@@ -73,7 +88,6 @@ const AgendarServico = () => {
                 observacao,
                 status: "ativo",
             });
-            console.log(dados)
 
             notificacao("Agendamento realizado com sucesso!");
             setTimeout(() => {
@@ -82,7 +96,7 @@ const AgendarServico = () => {
                 , 1000)
         } catch (e: any) {
 
-            if (usuario?.id_cliente == null) {
+            if (userId == null) {
                 erro("Cliente não está logado.")
                 return;
             }
@@ -94,6 +108,7 @@ const AgendarServico = () => {
 
     useEffect(() => {
         getServicos();
+        verificarLogin()
         getProfissinais();
 
         if (!idServico || !profissionais || !servicos) {

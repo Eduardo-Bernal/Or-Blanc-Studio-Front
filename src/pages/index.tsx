@@ -4,6 +4,16 @@ import type { AppProps } from "next/app";
 import { Cinzel, Tenor_Sans } from "next/font/google";
 import {ToastContainer} from "react-toastify";
 
+export async function getServerSideProps() {
+    return {
+        redirect: {
+            destination: '/home',
+            permanentRedirect: false
+        }
+    }
+}
+
+
 const cinzel = Cinzel({
     weight: ["400", "500", "600", "700"],
     variable: "--font-cinzel",
@@ -25,3 +35,4 @@ export default function App({ Component, pageProps }: AppProps) {
         </main>
     );
 }
+
