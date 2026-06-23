@@ -119,7 +119,7 @@ const AgendarServico = () => {
             <ToastContainer></ToastContainer>
             <Header/>
             <section id={styles.agendar_servico}>
-                <div className={`${styles.container_agendar} layout_guide`}>
+                <div className={`${styles.container_agendar} container`}>
                     <h1 className={"titulo"}>AGENDAR SERVIÇO</h1>
                     <form onSubmit={cadastrarAgendamento} className={styles.formulario_servico}>
                         <div className={`${styles.div_profissionais_servico}`}>

@@ -5,14 +5,13 @@ import {ToastContainer} from "react-toastify";
 
 import type { AppProps } from "next/app";
 import {AuthProvider} from "@/pages/api/AuthContext";
-import {Imprima} from "next/dist/compiled/@next/font/dist/google";
 import {useEffect} from "react";
 // import('bootstrap/js/dist/js/bootstrap.bundle.min.js');
 
 export default function App({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
-
+        // @ts-ignore
         import('bootstrap/dist/js/bootstrap.bundle.js');
     })
 

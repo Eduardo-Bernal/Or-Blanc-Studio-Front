@@ -30,7 +30,12 @@ export default function Profissional() {
         {id: "barba", nome: "Barba"},
         {id: "penteado", nome: "Penteado"},
         {id: "coloracao", nome: "Coloração"},
-        {id: "tratamento", nome: "Tratamentos"}
+        {id: "tratamento", nome: "Tratamentos"},
+        {id: "sobrancelha", nome: "Design Sobrancelha"},
+        {id: "escova", nome: "Escova"},
+        {id: "pele", nome: "Limpeza de Pele"},
+        {id: "manicure", nome: "Manicure"},
+        {id: "pedicure", nome: "Pedicure"},
     ];
 
     const router = useRouter();
@@ -87,6 +92,7 @@ export default function Profissional() {
                     "Profissional cadastrado com sucesso!"
                 );
             }
+            setTimeout(e => router.push("/home#Equipe"), 2000)
 
         } catch (error: any) {
             erro("Erro ao cadastrar profissional" + error.response.data)
