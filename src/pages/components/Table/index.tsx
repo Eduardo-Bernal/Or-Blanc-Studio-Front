@@ -1,8 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import {useState, useRef, useEffect} from "react";
 import styles from "@/pages/components/Table/table.module.css";
 import secureLocalStorage from "react-secure-storage";
+import {erro, notificacao} from "@/utils/toast";
+import {cancelarAgendamento, remarcarAgendamento} from "@/pages/api/agendamentoService";
+import ButtonGold from "@/pages/components/ButtonGold";
+import {router} from "next/client";
 
 interface Servico {
+    id_agendamento: number;
     profissional: string;
     cliente: string;
     servico: string;
@@ -16,21 +21,51 @@ interface TabelaProps {
     ehAgendado?: boolean;
     hasFilter?: boolean;
     hasDeleted?: boolean;
+    hasChanged?: boolean;
     onClick?: () => void;
+    hasButton?: boolean;
 }
 
-export default function Tabela({ titulo, dados, hasFilter, hasDeleted, onClick }: TabelaProps) {
+export default function Tabela({titulo, dados, hasFilter, hasDeleted, onClick, hasButton}: TabelaProps) {
     const [filtroAberto, setFiltroAberto] = useState(false);
     const [filtroPessoa, setFiltroPessoa] = useState("");
     const [filtroServico, setFiltroServico] = useState("");
     const [filtroData, setFiltroData] = useState("");
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+    const [dataHoraInicio, setDataHoraInicio] = useState<string>("");
+    const [dataHoraFim, setDataHoraFim] = useState<string>("");
+    const [agendamentoSelecionado, setAgendamentoSelecionado] = useState<number>(0);
+
     const role = secureLocalStorage.getItem("role") as string;
 
     const nomeColuna = role === "Profissional"
         ? "Cliente"
         : "Profissional";
+
+    async function deletarAgendamento(id: number) {
+        try {
+            await cancelarAgendamento(id);
+
+            notificacao("Deletado com sucesso!");
+
+            onClick?.();
+        } catch (e: any) {
+            erro(e.message)
+        }
+    }
+
+    async function alterarServico(id: number) {
+        try{
+            await remarcarAgendamento(id, dataHoraInicio, dataHoraFim);
+
+            notificacao("Serviço remarcado com sucesso!");
+
+            onClick?.();
+        }catch (e: any) {
+            erro(e.message)
+        }
+    }
 
     useEffect(() => {
         function handleClickOutside(e: MouseEvent) {
@@ -89,19 +124,79 @@ export default function Tabela({ titulo, dados, hasFilter, hasDeleted, onClick }
 
     return (
         <main className={styles.agendaMain}>
+            <div className="modal fade" data-bs-theme="dark" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Reagendar serviço</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="d-flex flex-column w-50">
+                                <label>Selecione a data inicio</label>
+                                <input className="input" type="datetime-local" value={dataHoraInicio}
+                                       onChange={event => setDataHoraInicio(event.target.value)}
+                                       placeholder="Selecione o dia de atendimento"/>
+                            </div>
+                            <div className={"d-flex flex-column w-50"}>
+                                <label>Estimativa para a hora fim</label>
+                                <input className="input" type="datetime-local" value={dataHoraFim}
+                                       onChange={event => setDataHoraFim(event.target.value)}
+                                       placeholder="Selecione a hora que deseja iniciar"/>
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <div className="w-25">
+                                <ButtonGold value="Remarcar" onClick={() => alterarServico(agendamentoSelecionado)}></ButtonGold>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div className="modal fade" data-bs-theme="dark" id="modalDelete" tabIndex={-1} aria-labelledby="modalDeleteLabel"
+                 aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="modalDeleteLabel">Remover Serviço</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            Você tem certeza que deseja cancelar o serviço?
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-danger" onClick={event => deletarAgendamento(agendamentoSelecionado)} data-bs-dismiss="modal">Deletar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className={styles.agendaContent}>
                 <div className={styles.tabelaContainer}>
                     <div className={styles.tabelaHeader}>
                         <h3
-                            style={{ color: "white" }}
+                            style={{color: "white"}}
                             className={styles.tabelaTitulo}
                         >
                             {titulo}
                         </h3>
 
+                        {hasButton && (
+                            <div style={{width: '120px'}}>
+                                <ButtonGold onClick={() => router.push('/agendar-servico')}
+                                            value={"Agendar"}></ButtonGold>
+                            </div>
+                        )}
+
                         {hasFilter && (
                             <div
-                                style={{ position: "relative" }}
+                                style={{position: "relative"}}
                                 ref={dropdownRef}
                             >
                                 <button
@@ -334,7 +429,7 @@ export default function Tabela({ titulo, dados, hasFilter, hasDeleted, onClick }
                         <tbody>
                         {dadosFiltrados.length > 0 ? (
                             dadosFiltrados.map((item, index) => (
-                                <tr key={index} >
+                                <tr key={index}>
                                     <td>
                                         {role === "Profissional"
                                             ? item.cliente
@@ -344,13 +439,21 @@ export default function Tabela({ titulo, dados, hasFilter, hasDeleted, onClick }
                                     <td>{item.servico}</td>
                                     <td>{item.data}</td>
                                     <td>{item.hora}</td>
-                                    {hasDeleted == true ? <td className=""><i onClick={onClick} className="ms-1 btn btn-sm btn-outline-danger bi bi-trash-fill"></i></td> : null }
+                                    {hasDeleted == true ?
+                                        <td className=""><i onClick={event => setAgendamentoSelecionado(item.id_agendamento)}
+                                                            className="ms-1 btn btn-sm btn-outline-danger bi bi-trash-fill" data-bs-toggle="modal" data-bs-target="#modalDelete"></i>
+                                            <i onClick={event => setAgendamentoSelecionado(item.id_agendamento)}
+                                               className="ms-1 btn btn-sm btn-outline-secondary bi bi-pen-fill" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+{/*                                            <button type="button" >*/}
+{/*aslkdjfalsçjfdlaksjfd*/}
+{/*                                            </button>*/}
+                                        </td> : null}
                                 </tr>
                             ))
                         ) : (
                             <tr>
                                 <td
-                                    colSpan={4}
+                                    colSpan={5}
                                     style={{
                                         textAlign: "center",
                                         color: "rgba(255,255,255,0.4)",
