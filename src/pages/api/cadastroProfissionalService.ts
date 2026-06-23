@@ -30,3 +30,25 @@ export async function cadastrarProfissional(dados: Profissional) {
 
     await api.post("Profissional", formData);
 }
+
+export async function editarProfissional(id: string, dados: any) {
+    try {
+        const formData = new FormData();
+
+        formData.append("nome", dados.nome);
+        formData.append("telefone", dados.telefone);
+        formData.append("email", dados.email);
+        formData.append("especialidade", dados.especialidade);
+        formData.append("senha", dados.senha);
+        formData.append("ativo", dados.ativo.toString());
+        if (dados.imagem) {
+            formData.append("imagem", dados.imagem);
+        }
+
+        await api.put(`/Profissional/${id}`, formData);
+    }
+    catch(err: any) {
+        throw new Error(err.response.data);
+    }
+
+}

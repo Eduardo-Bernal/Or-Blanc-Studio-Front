@@ -2,7 +2,7 @@ import Header from "@/pages/components/Header";
 import Footer from "@/pages/components/Footer";
 import styles from "./profissional.module.css";
 import {useEffect, useState} from "react";
-import {cadastrarProfissional} from "@/pages/api/cadastroProfissionalService";
+import {cadastrarProfissional, editarProfissional} from "@/pages/api/cadastroProfissionalService";
 import {erro, notificacao} from "@/utils/toast";
 import {ToastContainer} from "react-toastify";
 import {estaLogado} from "@/pages/api/authService";
@@ -10,7 +10,7 @@ import secureLocalStorage from "react-secure-storage";
 import {router} from "next/client";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {editarProfissional, listarProfissionalPorId} from "@/pages/api/profissionalService";
+import { listarProfissionalPorId} from "@/pages/api/profissionalService";
 
 export default function Profissional() {
 
@@ -87,9 +87,6 @@ export default function Profissional() {
                     "Profissional cadastrado com sucesso!"
                 );
             }
-
-            await cadastrarProfissional(dados);
-            notificacao("Profissional cadastrado com sucesso!");
 
         } catch (error: any) {
             erro("Erro ao cadastrar profissional" + error.response.data)

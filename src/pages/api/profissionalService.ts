@@ -15,12 +15,3 @@ export async function listarProfissionalPorId(id: string) {
     return response.data;
 }
 
-export async function editarProfissional(
-    id: string,
-    dados: any
-) {
-    return await api.put(
-        `/Profissional/${id}`,
-        dados
-    );
-}
