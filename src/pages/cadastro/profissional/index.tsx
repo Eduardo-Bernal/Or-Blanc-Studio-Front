@@ -73,21 +73,13 @@ export default function Profissional() {
             };
 
             if (telaEditar) {
-                await editarProfissional(id as string, dados
-                );
-                notificacao(
-                    "Profissional atualizado com sucesso!"
-                );
+                await editarProfissional(id as string, dados);
+                notificacao("Profissional atualizado com sucesso!");
 
             } else {
-
                 await cadastrarProfissional(dados);
-
-                notificacao(
-                    "Profissional cadastrado com sucesso!"
-                );
+                notificacao("Profissional cadastrado com sucesso!");
             }
-
         } catch (error: any) {
             erro("Erro ao cadastrar profissional" + error.response.data)
         }
