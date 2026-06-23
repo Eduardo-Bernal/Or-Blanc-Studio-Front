@@ -60,6 +60,7 @@ export default function AgendaUsuario(): ReactNode {
     }, [id]);
 
     const dadosTabela = agendamentos.map((agendamento) => ({
+        id_agendamento: agendamento.id_agendamento,
         profissional: agendamento.nome_profissional,
         cliente: agendamento.nome_cliente,
         servico: agendamento.nome_servico,
@@ -73,6 +74,7 @@ export default function AgendaUsuario(): ReactNode {
     const dadosAgendado = agendamentos
         .filter(agendamento => agendamento.status === "Agendado").sort((a, b) => new Date(a.data_hora_inicio).getTime() - new Date(b.data_hora_inicio).getTime())
         .map(agendamento => ({
+            id_agendamento: agendamento.id_agendamento,
             profissional: agendamento.nome_profissional,
             cliente: agendamento.nome_cliente,
             servico: agendamento.nome_servico,
@@ -105,6 +107,9 @@ export default function AgendaUsuario(): ReactNode {
                         dados={dadosAgendado}
                         ehAgendado={true}
                         hasFilter={false}
+                        hasButton={true}
+                        hasDeleted={true}
+                        onClick={() => carregarAgendamentos()}
                     />
                     <Tabela
                         titulo="Histórico de Serviços"

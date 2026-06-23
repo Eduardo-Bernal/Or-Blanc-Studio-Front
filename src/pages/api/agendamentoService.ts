@@ -70,8 +70,21 @@ export async function agendarServico(agendamento:IAgendamentoCadastro){
 
 export async function cancelarAgendamento(id: number){
     try{
-        await api.delete(`Agendamento/${id}/cancelar`);
+        await api.patch(`Agendamento/${id}/cancelar`);
     }catch(err:any){
-        throw new Error(err.message);
+        throw new Error(err.response.data);
+    }
+}
+
+export async function remarcarAgendamento(id: number, data_hora_inicio: string, data_hora_fim: string){
+    try{
+        const dados = await api.patch(`Agendamento/${id}/reagendar`, {
+            "data_hora_inicio": data_hora_inicio,
+            "data_hora_fim": data_hora_fim,
+        });
+
+        console.log(dados);
+    }catch(err:any){
+        throw new Error(err.response.data);
     }
 }
