@@ -52,6 +52,6 @@ export async function agendarServico(agendamento:IAgendamento){
         });
 
     }catch (e:any){
-        console.log(e.response?.data);
+        throw new Error(e.response?.data);
     }
 }

@@ -83,7 +83,7 @@ export default function AgendaUsuario(): ReactNode {
             }),
         }));
 
-    if(!logado || role != "Profissional") {
+    if(!logado || role != "Cliente") {
         return (
             <>
                 <main className="text-center d-flex justify-content-center align-items-center vh-100">
