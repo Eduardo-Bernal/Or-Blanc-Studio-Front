@@ -1,18 +1,19 @@
 export default function Footer() {
     return (
         <footer
-            className="col-12 px-4 z-3"
+            className="col-12 px-4 z-3 "
             style={{
                 backgroundColor: "#1D1D1E",
                 minHeight: "100px",
+                borderTop: "1px solid rgba(255,255,255,0.2)",
+
             }}
         >
-            <div className="col-12 ps-2 pe-2">
+            <div className="col-12 ps-2 pe-2 container container-fluid">
                 <div
                     className="row align-items-center"
                     style={{
                         minHeight: "100px",
-                        borderTop: "1px solid rgba(255,255,255,0.2)",
                     }}
                 >
                     <div className="col-3">

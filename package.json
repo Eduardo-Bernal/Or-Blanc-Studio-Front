@@ -20,6 +20,7 @@
     "react-toastify": "^11.1.0"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.11",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

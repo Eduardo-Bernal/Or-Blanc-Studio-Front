@@ -41,13 +41,13 @@ export default function Header() {
 
     return (
         <header
-            className="col-12 d-flex flex-row justify-content-between px-4"
+            className="col-12 d-flex flex-row justify-content-between px-4 "
             style={{
                 backgroundColor: "#1D1D1E",
                 minHeight: "100px",
             }}
         >
-            <div className="col-12 ps-2 pe-2">
+            <div className="col-12 ps-2 pe-2 container container-fluid">
                 <div className="row align-items-center">
 
 
